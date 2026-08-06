@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portal de Clientes — Petroil S.A. (Prototipo)</title>
+<link rel="icon" type="image/png" sizes="270x270" href="https://petroilsa.com/wp-content/uploads/2022/09/cropped-favicon-petroil-270x270.png">
+<meta name="theme-color" content="#0A2A43">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PETROIL · PORTAL DE CLIENTES — PROTOTIPO VISUAL
+   Sistema de diseño: navy corporativo + acento ámbar (energía)
+   ============================================================ */
+:root{
+  --navy-900:#081B2E;
+  --navy-800:#0A2A43;
+  --navy-700:#123A5C;
+  --navy-600:#1C4A73;
+  --navy-500:#2A5D8C;
+  --teal-500:#17A398;
+  --teal-400:#2FC1B4;
+  --teal-300:#8FE7DC;
+  --teal-100:#E3F8F5;
+  --amber-600:#DD7A32;
+  --amber-500:#F2924A;
+  --amber-100:#FCE9D8;
+  --gray-50:#F5F7FA;
+  --gray-100:#EDF1F5;
+  --gray-200:#E1E7EE;
+  --gray-300:#C9D2DC;
+  --gray-400:#9AA7B6;
+  --gray-500:#6B7686;
+  --gray-700:#3B4452;
+  --ink:#0F1720;
+  --white:#FFFFFF;
+  --success:#1E9E6B; --success-bg:#E3F6EE;
+  --info:#2F80C7;    --info-bg:#E7F1FB;
+  --warn:#B9791E;    --warn-bg:#FCEFD8;
+  --danger:#C0392B;  --danger-bg:#FBEAE8;
+  --shadow-sm:0 1px 2px rgba(8,27,46,.07),0 1px 1px rgba(8,27,46,.04);
+  --shadow-md:0 10px 28px rgba(8,27,46,.09),0 2px 6px rgba(8,27,46,.05);
+  --shadow-lg:0 24px 60px rgba(8,27,46,.18);
+  --radius-sm:8px; --radius-md:14px; --radius-lg:22px;
+  --font-display:'Space Grotesk',sans-serif;
+  --font-body:'IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono',monospace;
+  --sidebar-w:248px;
+  --sidebar-w-collapsed:76px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--font-body);
+  color:var(--ink);
+  background:var(--gray-50);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0;letter-spacing:-.01em;}
+p{margin:0;}
+button{font-family:inherit;}
+a{color:inherit;}
+::selection{background:var(--teal-300);color:var(--navy-900);}
+:focus-visible{outline:2px solid var(--teal-500);outline-offset:2px;border-radius:4px;}
+.mono{font-family:var(--font-mono);}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}
+
+/* ---------- Prototype ribbon (global honesty label, matches site pattern) ---------- */
+.proto-ribbon{
+  background:var(--navy-900);
+  color:var(--teal-300);
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  letter-spacing:.05em;
+  text-align:center;
+  padding:6px 12px;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+.proto-ribbon strong{color:var(--white); font-weight:600;}
+.proto-ribbon svg{flex-shrink:0;}
+
+/* ============================================================
+   LOGIN SCREEN
+   ============================================================ */
+#loginScreen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(47,193,180,.16), transparent 60%),
+    radial-gradient(900px 500px at 110% 110%, rgba(242,146,74,.10), transparent 55%),
+    linear-gradient(160deg,var(--navy-900) 0%,var(--navy-800) 55%,#0D3352 100%);
+  position:relative;
+  overflow:hidden;
+}
+.login-wrap{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 20px;
+  position:relative;
+  z-index:2;
+}
+/* signature motif: animated pipeline / flow lines behind the login card */
+.pipeline-field{
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  opacity:.5;
+}
+.pipeline-field path{
+  fill:none;
+  stroke:url(#pipeGrad);
+  stroke-width:1.4;
+  stroke-dasharray:6 10;
+  animation:flow 26s linear infinite;
+}
+.pipeline-field path:nth-child(2){animation-duration:34s; stroke-dasharray:3 9; opacity:.7;}
+.pipeline-field path:nth-child(3){animation-duration:20s; stroke-dasharray:2 12; opacity:.55;}
+.pipeline-field circle{fill:var(--teal-400); opacity:.6;}
+@keyframes flow{ to{ stroke-dashoffset:-320; } }
+
+.login-card{
+  width:100%; max-width:396px;
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);
+  padding:38px 34px 30px;
+  animation:cardIn .6s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes cardIn{ from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;} }
+.login-logo{display:flex; justify-content:center; margin-bottom:22px;}
+.login-logo img{height:34px;}
+.login-head{text-align:center; margin-bottom:26px;}
+.login-head h1{font-size:21px; color:var(--navy-900); margin-bottom:6px;}
+.login-head p{font-size:13.5px; color:var(--gray-500); line-height:1.5;}
+.field{margin-bottom:16px;}
+.field label{
+  display:block; font-size:12.5px; font-weight:600; color:var(--navy-800);
+  margin-bottom:6px; letter-spacing:.01em;
+}
+.field .input-wrap{position:relative;}
+.field input[type=text],.field input[type=password]{
+  width:100%; padding:11px 13px 11px 38px;
+  border:1.4px solid var(--gray-200); border-radius:var(--radius-sm);
+  font-size:14px; font-family:var(--font-body); color:var(--ink);
+  background:var(--gray-50);
+  transition:border-color .15s, background .15s;
+}
+.field input:focus{border-color:var(--teal-500); background:var(--white); outline:none;}
+.field .input-wrap svg{
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  color:var(--gray-400); pointer-events:none;
+}
+.field-row{display:flex; align-items:center; justify-content:space-between; margin:4px 0 22px;}
+.checkbox-wrap{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--gray-700);}
+.checkbox-wrap input{accent-color:var(--teal-500); width:15px; height:15px;}
+.link-muted{font-size:12.5px; color:var(--navy-600); text-decoration:none; border-bottom:1px dashed var(--gray-300);}
+.btn-login{
+  width:100%; padding:12.5px; border:none; border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,var(--teal-500),var(--navy-700));
+  color:var(--white); font-size:14.5px; font-weight:600; letter-spacing:.01em;
+  cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px;
+  box-shadow:0 10px 22px rgba(23,163,152,.28);
+  transition:transform .15s, box-shadow .15s;
+}
+.btn-login:hover{transform:translateY(-1px); box-shadow:0 14px 26px rgba(23,163,152,.35);}
+.btn-login:active{transform:translateY(0);}
+.btn-login .spinner{
+  width:15px; height:15px; border-radius:50%;
+  border:2px solid rgba(255,255,255,.4); border-top-color:#fff;
+  animation:spin .7s linear infinite; display:none;
+}
+.btn-login.loading .spinner{display:inline-block;}
+.btn-login.loading .btn-label{opacity:.85;}
+@keyframes spin{ to{ transform:rotate(360deg); } }
+.login-legend{
+  margin-top:20px; padding-top:16px; border-top:1px solid var(--gray-100);
+  text-align:center; font-size:11.5px; color:var(--gray-400); letter-spacing:.02em;
+}
+.login-foot{
+  position:relative; z-index:2; text-align:center; color:rgba(255,255,255,.55);
+  font-size:11.5px; padding:16px; font-family:var(--font-mono);
+}
+
+/* ============================================================
+   PORTAL SHELL
+   ============================================================ */
+#portalShell{display:none; min-height:100vh;}
+#portalShell.active{display:flex;}
+.sidebar{
+  width:var(--sidebar-w);
+  background:linear-gradient(185deg,var(--navy-900),var(--navy-800) 70%);
+  color:var(--white);
+  display:flex; flex-direction:column;
+  flex-shrink:0;
+  position:sticky; top:0; height:100vh;
+  transition:width .2s ease;
+  z-index:40;
+}
+.sidebar-brand{
+  display:flex; align-items:center; gap:10px;
+  padding:20px 18px; border-bottom:1px solid rgba(255,255,255,.08);
+}
+.sidebar-brand img{height:24px;}
+.sidebar-nav{flex:1; padding:14px 10px; overflow-y:auto;}
+.nav-section-label{
+  font-size:10.5px; text-transform:uppercase; letter-spacing:.09em;
+  color:rgba(255,255,255,.35); padding:14px 12px 6px;
+}
+.nav-item{
+  display:flex; align-items:center; gap:12px;
+  width:100%; padding:10px 12px; margin-bottom:2px;
+  background:none; border:none; border-radius:10px;
+  color:rgba(255,255,255,.72); font-size:13.6px; font-weight:500;
+  cursor:pointer; text-align:left; position:relative;
+  transition:background .15s, color .15s;
+}
+.nav-item svg{flex-shrink:0; opacity:.85;}
+.nav-item:hover{background:rgba(255,255,255,.07); color:var(--white);}
+.nav-item.active{background:rgba(47,193,180,.16); color:var(--white);}
+.nav-item.active::before{
+  content:""; position:absolute; left:-10px; top:8px; bottom:8px; width:3px;
+  background:var(--teal-400); border-radius:0 3px 3px 0;
+}
+.nav-item .nav-badge{
+  margin-left:auto; background:var(--amber-500); color:var(--navy-900);
+  font-size:10px; font-weight:700; padding:1px 6px; border-radius:20px;
+}
+.sidebar-foot{
+  padding:14px 18px 18px; border-top:1px solid rgba(255,255,255,.08);
+  font-size:11px; color:rgba(255,255,255,.4); font-family:var(--font-mono); line-height:1.6;
+}
+.sidebar-collapse{
+  display:flex; align-items:center; gap:8px; width:100%;
+  background:none; border:none; color:rgba(255,255,255,.5);
+  font-size:12px; padding:8px 12px; cursor:pointer; border-radius:8px;
+}
+.sidebar-collapse:hover{background:rgba(255,255,255,.06); color:#fff;}
+
+.portal-main{flex:1; min-width:0; display:flex; flex-direction:column;}
+
+.topbar{
+  background:var(--white); border-bottom:1px solid var(--gray-200);
+  padding:12px 26px; display:flex; align-items:center; gap:16px;
+  position:sticky; top:0; z-index:30;
+}
+.mobile-menu-btn{
+  display:none; background:none; border:none; color:var(--navy-800);
+  cursor:pointer; padding:6px;
+}
+.topbar-search{
+  flex:1; max-width:380px; position:relative;
+}
+.topbar-search input{
+  width:100%; padding:9px 12px 9px 36px; border:1.4px solid var(--gray-200);
+  border-radius:10px; background:var(--gray-50); font-size:13.5px;
+}
+.topbar-search input:focus{border-color:var(--teal-500); outline:none; background:var(--white);}
+.topbar-search svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--gray-400);}
+.topbar-right{margin-left:auto; display:flex; align-items:center; gap:8px;}
+.icon-btn{
+  position:relative; width:38px; height:38px; border-radius:10px; border:none;
+  background:transparent; color:var(--navy-800); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background .15s;
+}
+.icon-btn:hover{background:var(--gray-100);}
+.icon-btn .dot{
+  position:absolute; top:7px; right:7px; width:8px; height:8px; border-radius:50%;
+  background:var(--amber-500); border:1.5px solid var(--white);
+}
+.user-chip{
+  display:flex; align-items:center; gap:9px; padding:5px 10px 5px 5px;
+  border-radius:30px; background:var(--gray-50); border:1px solid var(--gray-200);
+  cursor:pointer;
+}
+.user-avatar{
+  width:28px; height:28px; border-radius:50%;
+  background:linear-gradient(135deg,var(--teal-500),var(--navy-700));
+  color:#fff; display:flex; align-items:center; justify-content:center;
+  font-size:11.5px; font-weight:700; font-family:var(--font-display);
+}
+.user-chip .u-name{font-size:12.5px; font-weight:600; color:var(--navy-900); line-height:1.15;}
+.user-chip .u-role{font-size:10.5px; color:var(--gray-500);}
+
+/* notification dropdown */
+.dropdown{
+  position:absolute; top:52px; right:0; width:320px;
+  background:#fff; border-radius:var(--radius-md); box-shadow:var(--shadow-lg);
+  border:1px solid var(--gray-200); overflow:hidden; z-index:50;
+  opacity:0; visibility:hidden; transform:translateY(-6px);
+  transition:opacity .15s, transform .15s, visibility .15s;
+}
+.dropdown.open{opacity:1; visibility:visible; transform:none;}
+.dropdown-head{padding:12px 16px; font-size:12.5px; font-weight:700; color:var(--navy-900); border-bottom:1px solid var(--gray-100);}
+.dropdown-item{
+  display:flex; gap:10px; padding:12px 16px; border-bottom:1px solid var(--gray-100);
+  font-size:12.5px; color:var(--gray-700); align-items:flex-start;
+}
+.dropdown-item:last-child{border-bottom:none;}
+.dropdown-item .di-icon{
+  width:30px; height:30px; border-radius:9px; background:var(--teal-100); color:var(--teal-500);
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.dropdown-item .di-time{font-size:10.5px; color:var(--gray-400); margin-top:2px; font-family:var(--font-mono);}
+.topbar-right{position:relative;}
+
+/* mobile sidebar overlay */
+.sidebar-scrim{
+  display:none; position:fixed; inset:0; background:rgba(8,27,46,.5); z-index:35;
+}
+.sidebar-scrim.open{display:block;}
+
+/* view container */
+.view-container{padding:24px 26px 60px; max-width:1360px; width:100%; margin:0 auto;}
+.view{display:none; animation:viewIn .35s ease both;}
+.view.active{display:block;}
+@keyframes viewIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+.view-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap;}
+.view-head h2{font-size:23px; color:var(--navy-900);}
+.view-head .view-sub{font-size:13px; color:var(--gray-500); margin-top:4px;}
+.view-actions{display:flex; gap:10px;}
+
+.btn{
+  border:none; border-radius:9px; padding:9px 15px; font-size:13px; font-weight:600;
+  cursor:pointer; display:inline-flex; align-items:center; gap:7px;
+  transition:transform .12s, box-shadow .12s, background .15s;
+}
+.btn-primary{background:var(--navy-800); color:#fff;}
+.btn-primary:hover{background:var(--navy-700);}
+.btn-accent{background:var(--amber-500); color:#fff;}
+.btn-accent:hover{background:var(--amber-600);}
+.btn-ghost{background:var(--gray-100); color:var(--navy-800);}
+.btn-ghost:hover{background:var(--gray-200);}
+.btn-sm{padding:6px 11px; font-size:12px; border-radius:7px;}
+.btn:active{transform:scale(.97);}
+
+/* ---------- stat cards ---------- */
+.stat-grid{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:22px;
+}
+.stat-card{
+  background:#fff; border-radius:var(--radius-md); padding:18px 18px 16px;
+  box-shadow:var(--shadow-sm); border:1px solid var(--gray-100);
+  position:relative; overflow:hidden;
+}
+.stat-card .stat-icon{
+  width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+  margin-bottom:12px;
+}
+.stat-card .stat-label{font-size:12px; color:var(--gray-500); font-weight:500; margin-bottom:5px;}
+.stat-card .stat-value{font-family:var(--font-display); font-size:24px; font-weight:700; color:var(--navy-900); line-height:1.1;}
+.stat-card .stat-foot{font-size:11.5px; color:var(--gray-400); margin-top:6px; font-family:var(--font-mono);}
+.stat-card.accent-teal .stat-icon{background:var(--teal-100); color:var(--teal-500);}
+.stat-card.accent-amber .stat-icon{background:var(--amber-100); color:var(--amber-600);}
+.stat-card.accent-navy .stat-icon{background:var(--gray-100); color:var(--navy-700);}
+.stat-badge{
+  position:absolute; top:16px; right:16px; font-size:10.5px; font-weight:700; padding:3px 9px;
+  border-radius:20px;
+}
+
+/* ---------- panel / card generic ---------- */
+.panel{
+  background:#fff; border-radius:var(--radius-md); border:1px solid var(--gray-100);
+  box-shadow:var(--shadow-sm); padding:20px 20px 18px;
+}
+.panel-head{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+.panel-head h3{font-size:15px; color:var(--navy-900);}
+.panel-head .panel-sub{font-size:11.5px; color:var(--gray-400); font-family:var(--font-mono);}
+.chart-grid{display:grid; grid-template-columns:1.3fr 1fr; gap:16px; margin-bottom:16px;}
+.chart-grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;}
+.legend-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:10px;}
+.legend-dot{display:inline-flex; align-items:center; gap:6px; font-size:11.5px; color:var(--gray-600);}
+.legend-dot span{width:9px; height:9px; border-radius:50%; display:inline-block;}
+
+/* ---------- tables ---------- */
+.table-wrap{overflow-x:auto; border-radius:var(--radius-md);}
+table.data-table{width:100%; border-collapse:collapse; font-size:13px; min-width:720px;}
+table.data-table thead th{
+  text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.05em;
+  color:var(--gray-500); font-weight:600; padding:10px 14px; border-bottom:1.5px solid var(--gray-200);
+  background:var(--gray-50); position:sticky; top:0;
+}
+table.data-table thead th:first-child{border-top-left-radius:10px;}
+table.data-table thead th:last-child{border-top-right-radius:10px;}
+table.data-table tbody td{
+  padding:12px 14px; border-bottom:1px solid var(--gray-100); color:var(--gray-700); vertical-align:middle;
+}
+table.data-table tbody tr:hover{background:var(--gray-50);}
+table.data-table tbody tr:last-child td{border-bottom:none;}
+.cell-strong{color:var(--navy-900); font-weight:600;}
+.cell-mono{font-family:var(--font-mono); font-size:12.5px; color:var(--gray-600);}
+.row-actions{display:flex; gap:6px;}
+
+.badge{
+  display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600;
+  padding:4px 10px; border-radius:20px; white-space:nowrap;
+}
+.badge::before{content:""; width:6px; height:6px; border-radius:50%; background:currentColor;}
+.badge-success{background:var(--success-bg); color:var(--success);}
+.badge-info{background:var(--info-bg); color:var(--info);}
+.badge-warn{background:var(--warn-bg); color:var(--warn);}
+.badge-danger{background:var(--danger-bg); color:var(--danger);}
+.badge-neutral{background:var(--gray-100); color:var(--gray-500);}
+
+/* ---------- document library cards (certificados / fichas) ---------- */
+.doc-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:14px;}
+.doc-card{
+  background:#fff; border:1px solid var(--gray-100); border-radius:var(--radius-md);
+  padding:16px; box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:10px;
+  transition:box-shadow .15s, transform .15s;
+}
+.doc-card:hover{box-shadow:var(--shadow-md); transform:translateY(-2px);}
+.doc-icon{
+  width:40px; height:40px; border-radius:10px; background:var(--danger-bg); color:#C0392B;
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-mono); font-size:10px; font-weight:700;
+}
+.doc-title{font-size:13.5px; font-weight:600; color:var(--navy-900); line-height:1.35;}
+.doc-meta{font-size:11px; color:var(--gray-400); font-family:var(--font-mono);}
+.doc-actions{display:flex; gap:8px; margin-top:auto; padding-top:4px;}
+
+/* ---------- news cards ---------- */
+.news-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:16px;}
+.news-card{
+  background:#fff; border:1px solid var(--gray-100); border-radius:var(--radius-md);
+  overflow:hidden; box-shadow:var(--shadow-sm); transition:box-shadow .15s, transform .15s;
+}
+.news-card:hover{box-shadow:var(--shadow-md); transform:translateY(-2px);}
+.news-thumb{
+  height:104px; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+}
+.news-thumb svg{position:relative; z-index:2;}
+.news-body{padding:14px 16px 16px;}
+.news-tag{font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--teal-500); margin-bottom:6px; display:block;}
+.news-title{font-size:13.8px; font-weight:600; color:var(--navy-900); line-height:1.4; margin-bottom:8px;}
+.news-date{font-size:11px; color:var(--gray-400); font-family:var(--font-mono);}
+
+/* ---------- profile ---------- */
+.profile-grid{display:grid; grid-template-columns:1fr 320px; gap:18px; align-items:start;}
+.profile-info-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px 24px;}
+.info-item{padding:12px 0; border-bottom:1px solid var(--gray-100);}
+.info-item .info-label{font-size:11px; color:var(--gray-400); text-transform:uppercase; letter-spacing:.05em; margin-bottom:4px;}
+.info-item .info-value{font-size:14px; color:var(--navy-900); font-weight:600;}
+.gauge-wrap{display:flex; flex-direction:column; align-items:center; text-align:center;}
+.gauge-value{font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--navy-900); margin-top:-38px;}
+.gauge-sub{font-size:11.5px; color:var(--gray-500); margin-bottom:14px;}
+.gauge-legend{display:flex; gap:18px; margin-top:6px;}
+.gauge-legend div{text-align:center;}
+.gauge-legend .gl-label{font-size:10.5px; color:var(--gray-400); text-transform:uppercase; letter-spacing:.04em;}
+.gauge-legend .gl-value{font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--navy-900);}
+
+/* ---------- toast ---------- */
+.toast-stack{position:fixed; bottom:20px; right:20px; z-index:200; display:flex; flex-direction:column; gap:10px;}
+.toast{
+  background:var(--navy-900); color:#fff; padding:12px 16px; border-radius:10px;
+  font-size:12.8px; box-shadow:var(--shadow-lg); display:flex; align-items:center; gap:10px;
+  min-width:240px; max-width:320px;
+  transform:translateX(20px); opacity:0; animation:toastIn .3s ease forwards;
+}
+.toast svg{color:var(--teal-400); flex-shrink:0;}
+@keyframes toastIn{ to{transform:none; opacity:1;} }
+.toast.leaving{animation:toastOut .25s ease forwards;}
+@keyframes toastOut{ to{transform:translateX(20px); opacity:0;} }
+
+/* ---------- modal ---------- */
+.modal-scrim{
+  position:fixed; inset:0; background:rgba(8,27,46,.55); z-index:100;
+  display:flex; align-items:center; justify-content:center; padding:20px;
+  opacity:0; visibility:hidden; transition:opacity .18s, visibility .18s;
+}
+.modal-scrim.open{opacity:1; visibility:visible;}
+.modal-box{
+  background:#fff; border-radius:var(--radius-lg); max-width:460px; width:100%;
+  box-shadow:var(--shadow-lg); transform:translateY(10px) scale(.98); transition:transform .2s;
+  max-height:82vh; overflow-y:auto;
+}
+.modal-scrim.open .modal-box{transform:none;}
+.modal-head{display:flex; align-items:center; justify-content:space-between; padding:18px 20px; border-bottom:1px solid var(--gray-100);}
+.modal-head h3{font-size:15.5px; color:var(--navy-900);}
+.modal-close{background:none; border:none; color:var(--gray-400); cursor:pointer; padding:4px;}
+.modal-body{padding:18px 20px 20px;}
+.timeline{list-style:none; margin:0; padding:0;}
+.timeline li{
+  display:flex; gap:12px; padding-bottom:18px; position:relative;
+}
+.timeline li:not(:last-child)::before{
+  content:""; position:absolute; left:8px; top:22px; bottom:0; width:1.5px; background:var(--gray-200);
+}
+.timeline .tl-dot{width:17px; height:17px; border-radius:50%; background:var(--teal-100); border:2px solid var(--teal-500); flex-shrink:0; margin-top:2px;}
+.timeline .tl-dot.done{background:var(--teal-500);}
+.timeline .tl-title{font-size:13px; font-weight:600; color:var(--navy-900);}
+.timeline .tl-date{font-size:11px; color:var(--gray-400); font-family:var(--font-mono); margin-top:2px;}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1080px){
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+  .chart-grid, .chart-grid-2{grid-template-columns:1fr;}
+  .profile-grid{grid-template-columns:1fr;}
+}
+@media (max-width: 860px){
+  .sidebar{position:fixed; left:0; top:0; height:100vh; transform:translateX(-100%); transition:transform .22s ease;}
+  .sidebar.open{transform:translateX(0);}
+  .mobile-menu-btn{display:flex;}
+  .topbar-search{display:none;}
+  .view-container{padding:18px 14px 50px;}
+}
+@media (max-width: 560px){
+  .stat-grid{grid-template-columns:1fr;}
+  .view-head{flex-direction:column; align-items:flex-start;}
+  .doc-grid, .news-grid{grid-template-columns:1fr 1fr;}
+}
+@media (max-width: 400px){
+  .doc-grid, .news-grid{grid-template-columns:1fr;}
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+  .pipeline-field path{animation:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="proto-ribbon">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+  <span><strong>Prototipo visual</strong> — Portal de Clientes sobre SharePoint Online · Todos los datos, cifras y documentos son simulados</span>
+</div>
+
+<!-- ============================================================
+     PANTALLA 1 · LOGIN
+     ============================================================ -->
+<section id="loginScreen">
+  <svg class="pipeline-field" viewBox="0 0 1200 800" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="pipeGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#2FC1B4"/>
+        <stop offset="100%" stop-color="#F2924A"/>
+      </linearGradient>
+    </defs>
+    <path d="M-50 620 C 200 560, 300 700, 560 640 S 900 520, 1250 600"/>
+    <path d="M-50 200 C 250 260, 400 120, 700 190 S 1000 300, 1250 220"/>
+    <path d="M-50 420 C 300 380, 500 460, 800 400 S 1050 340, 1250 410"/>
+    <circle cx="560" cy="640" r="3.2"/>
+    <circle cx="700" cy="190" r="3.2"/>
+    <circle cx="800" cy="400" r="3.2"/>
+  </svg>
+
+  <div class="login-wrap">
+    <form class="login-card" id="loginForm" novalidate>
+      <div class="login-logo">
+        <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil-logo-blanco.png" alt="Petroil S.A." style="filter:invert(1) brightness(.15);">
+      </div>
+      <div class="login-head">
+        <h1>Bienvenido de nuevo</h1>
+        <p>Ingresa a tu Portal de Clientes para consultar pedidos, facturación, certificados y más.</p>
+      </div>
+
+      <div class="field">
+        <label for="loginUser">Usuario</label>
+        <div class="input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input type="text" id="loginUser" name="loginUser" placeholder="usuario@empresa.com" autocomplete="username">
+        </div>
+      </div>
+      <div class="field">
+        <label for="loginPass">Contraseña</label>
+        <div class="input-wrap">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+          <input type="password" id="loginPass" name="loginPass" placeholder="••••••••" autocomplete="current-password">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <label class="checkbox-wrap"><input type="checkbox" id="rememberMe" checked> Recordarme</label>
+        <a href="#" class="link-muted" onclick="return false;">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-login" id="loginBtn">
+        <span class="spinner"></span>
+        <span class="btn-label">Ingresar</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+
+      <div class="login-legend">Portal exclusivo para clientes registrados</div>
+    </form>
+  </div>
+  <div class="login-foot">PETROIL S.A. · Refinería de Hidrocarburos · Mejorando el aire que respiramos</div>
+</section>
+
+<!-- ============================================================
+     PANTALLA 2 · PORTAL DEL CLIENTE
+     ============================================================ -->
+<div class="sidebar-scrim" id="sidebarScrim"></div>
+<div id="portalShell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil-logo-blanco.png" alt="Petroil S.A.">
+    </div>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <div class="nav-section-label">Menú</div>
+      <!-- nav items injected by JS -->
+    </nav>
+    <div class="sidebar-foot">
+      SharePoint Online · M365<br>Sesión de demostración
+    </div>
+  </aside>
+
+  <div class="portal-main">
+    <header class="topbar">
+      <button class="mobile-menu-btn icon-btn" id="mobileMenuBtn" aria-label="Abrir menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+      <div class="topbar-search">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Buscar pedidos, facturas, documentos…" id="topSearch">
+      </div>
+      <div class="topbar-right">
+        <button class="icon-btn" id="notifBtn" aria-label="Notificaciones">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+          <span class="dot"></span>
+        </button>
+        <div class="dropdown" id="notifDropdown">
+          <div class="dropdown-head">Notificaciones</div>
+          <!-- injected by JS -->
+        </div>
+        <div class="user-chip" id="userChip">
+          <div class="user-avatar">MC</div>
+          <div>
+            <div class="u-name">Marítima &amp; Caribe</div>
+            <div class="u-role">Cliente corporativo</div>
+          </div>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+        <div class="dropdown" id="userDropdown" style="width:200px;">
+          <div class="dropdown-item" style="cursor:pointer;" onclick="goToView('perfil')">Mi Perfil</div>
+          <div class="dropdown-item" style="cursor:pointer;" onclick="showToast('Esto es una demostración. En producción cerraría la sesión.','info')">Cerrar sesión</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="view-container" id="viewContainer">
+
+      <!-- ============ INICIO / DASHBOARD ============ -->
+      <section class="view" id="view-inicio">
+        <div class="view-head">
+          <div>
+            <h2>Hola, Carlos 👋</h2>
+            <p class="view-sub">Este es el resumen de tu cuenta con Petroil S.A. — actualizado hoy.</p>
+          </div>
+          <div class="view-actions">
+            <button class="btn btn-ghost" onclick="showToast('Generando reporte de cuenta…','info')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/></svg>
+              Exportar resumen
+            </button>
+            <button class="btn btn-accent" onclick="goToView('cotizaciones')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Nueva cotización
+            </button>
+          </div>
+        </div>
+
+        <div class="stat-grid" id="statGrid"><!-- injected --></div>
+
+        <div class="chart-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Compras por mes</h3>
+              <span class="panel-sub">GALONES · 2026</span>
+            </div>
+            <svg id="chartCompras" width="100%" height="230" viewBox="0 0 620 230"></svg>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Distribución por tipo de producto</h3>
+              <span class="panel-sub">ÚLTIMOS 12 MESES</span>
+            </div>
+            <svg id="chartDona" width="100%" height="190" viewBox="0 0 220 190"></svg>
+            <div class="legend-row" id="donaLegend"></div>
+          </div>
+        </div>
+
+        <div class="chart-grid">
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Consumo de combustibles</h3>
+              <span class="panel-sub">DIÉSEL MARINO VS. FUEL OIL</span>
+            </div>
+            <svg id="chartConsumo" width="100%" height="200" viewBox="0 0 620 200"></svg>
+            <div class="legend-row" id="consumoLegend"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head">
+              <h3>Evolución de compras</h3>
+              <span class="panel-sub">VALOR · ÚLTIMO AÑO</span>
+            </div>
+            <svg id="chartEvolucion" width="100%" height="200" viewBox="0 0 380 200"></svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ MIS PEDIDOS ============ -->
+      <section class="view" id="view-pedidos">
+        <div class="view-head">
+          <div><h2>Mis Pedidos</h2><p class="view-sub">Historial y seguimiento de tus pedidos con Petroil S.A.</p></div>
+          <div class="view-actions">
+            <button class="btn btn-primary" onclick="showToast('Solicitud de nuevo pedido enviada a tu ejecutivo comercial.','success')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Solicitar pedido
+            </button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr>
+                <th>Pedido</th><th>Fecha</th><th>Producto</th><th>Cantidad</th><th>Estado</th><th>Transportadora</th><th>Guía</th><th>Acción</th>
+              </tr></thead>
+              <tbody id="pedidosBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ FACTURACIÓN ============ -->
+      <section class="view" id="view-facturacion">
+        <div class="view-head">
+          <div><h2>Facturación</h2><p class="view-sub">Consulta y descarga tus facturas electrónicas.</p></div>
+        </div>
+        <div class="panel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Número</th><th>Fecha</th><th>Valor</th><th>Estado</th><th>Acción</th></tr></thead>
+              <tbody id="facturasBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CERTIFICADOS ============ -->
+      <section class="view" id="view-certificados">
+        <div class="view-head">
+          <div><h2>Certificados</h2><p class="view-sub">Biblioteca documental de calidad, seguridad y medio ambiente.</p></div>
+        </div>
+        <div class="doc-grid" id="certGrid"></div>
+      </section>
+
+      <!-- ============ FICHAS TÉCNICAS ============ -->
+      <section class="view" id="view-fichas">
+        <div class="view-head">
+          <div><h2>Fichas Técnicas</h2><p class="view-sub">Especificaciones por producto de nuestro portafolio.</p></div>
+        </div>
+        <div class="doc-grid" id="fichasGrid"></div>
+      </section>
+
+      <!-- ============ COTIZACIONES ============ -->
+      <section class="view" id="view-cotizaciones">
+        <div class="view-head">
+          <div><h2>Cotizaciones</h2><p class="view-sub">Histórico de cotizaciones solicitadas a tu ejecutivo comercial.</p></div>
+          <div class="view-actions">
+            <button class="btn btn-accent" onclick="showToast('Formulario de nueva cotización (simulado).','info')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Nueva cotización
+            </button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Cotización</th><th>Fecha</th><th>Detalle</th><th>Valor</th><th>Estado</th></tr></thead>
+              <tbody id="cotizacionesBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PQRS ============ -->
+      <section class="view" id="view-pqrs">
+        <div class="view-head">
+          <div><h2>PQRS</h2><p class="view-sub">Peticiones, quejas, reclamos y sugerencias.</p></div>
+          <div class="view-actions">
+            <button class="btn btn-primary" onclick="showToast('Formulario de nuevo PQRS (simulado).','info')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+              Crear PQRS
+            </button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="table-wrap">
+            <table class="data-table">
+              <thead><tr><th>Número</th><th>Asunto</th><th>Estado</th><th>Responsable</th><th>Fecha</th><th>Acción</th></tr></thead>
+              <tbody id="pqrsBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ NOTICIAS ============ -->
+      <section class="view" id="view-noticias">
+        <div class="view-head">
+          <div><h2>Noticias</h2><p class="view-sub">Novedades corporativas de Petroil S.A.</p></div>
+        </div>
+        <div class="news-grid" id="newsGrid"></div>
+      </section>
+
+      <!-- ============ MI PERFIL ============ -->
+      <section class="view" id="view-perfil">
+        <div class="view-head">
+          <div><h2>Mi Perfil</h2><p class="view-sub">Información de tu empresa y condición comercial con Petroil.</p></div>
+        </div>
+        <div class="profile-grid">
+          <div class="panel">
+            <div class="panel-head"><h3>Datos de la empresa</h3></div>
+            <div class="profile-info-grid" id="profileInfoGrid"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><h3>Cupo de crédito</h3></div>
+            <div class="gauge-wrap">
+              <svg id="creditGauge" width="220" height="130" viewBox="0 0 220 130"></svg>
+              <div class="gauge-value" id="gaugeValueLabel">—</div>
+              <div class="gauge-sub">Utilizado sobre cupo total</div>
+              <div class="gauge-legend">
+                <div><div class="gl-label">Disponible</div><div class="gl-value" id="glDisponible">—</div></div>
+                <div><div class="gl-label">Utilizado</div><div class="gl-value" id="glUtilizado">—</div></div>
+                <div><div class="gl-label">Total</div><div class="gl-value" id="glTotal">—</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: detalle / seguimiento ============ -->
+<div class="modal-scrim" id="modalScrim">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">Detalle</h3>
+      <button class="modal-close" id="modalClose" aria-label="Cerrar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<div class="toast-stack" id="toastStack"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   DATA — todo simulado
+   ============================================================ */
+const PRODUCTS = [
+  "Petroil 40 A MAX","Petroil 50/10 Fuel Oil #4","Petroil 60 Nafta Virgen","Petroil 90 - Gasolina Premium",
+  "Petroil 100 Mejorador de IFOS","Petroil 250 Fuel Oil #4","Petroil 300 VLS Fuel Oil",
+  "Petroil 500 Marine MGO Fuel Oil","Petroil 800 G (Green)","Petroil 800 HCl"
+];
+
+const PEDIDOS = [
+  {id:"PED-2026-00584", fecha:"2026-08-01", prod:"Petroil 90 - Gasolina Premium", cant:"8.000 gal", estado:"En tránsito", transp:"Carrotanques del Caribe S.A.S.", guia:"GD-58231"},
+  {id:"PED-2026-00583", fecha:"2026-07-28", prod:"Petroil 500 Marine MGO Fuel Oil", cant:"15.000 gal", estado:"Entregado", transp:"Transportadora Andina de Hidrocarburos", guia:"GD-58198"},
+  {id:"PED-2026-00582", fecha:"2026-07-24", prod:"Petroil 250 Fuel Oil #4", cant:"20.000 gal", estado:"Entregado", transp:"Logística Terpetrol S.A.S.", guia:"GD-58147"},
+  {id:"PED-2026-00581", fecha:"2026-07-19", prod:"Petroil 800 G (Green)", cant:"6.500 gal", estado:"Facturado", transp:"Carrotanques del Caribe S.A.S.", guia:"GD-58102"},
+  {id:"PED-2026-00580", fecha:"2026-07-14", prod:"Petroil 60 Nafta Virgen", cant:"10.000 gal", estado:"Entregado", transp:"Transportadora Andina de Hidrocarburos", guia:"GD-58061"},
+  {id:"PED-2026-00579", fecha:"2026-07-09", prod:"Petroil 90 - Gasolina Premium", cant:"7.200 gal", estado:"Preparación", transp:"Por asignar", guia:"—"},
+  {id:"PED-2026-00578", fecha:"2026-07-02", prod:"Petroil 40 A MAX", cant:"9.800 gal", estado:"Entregado", transp:"Logística Terpetrol S.A.S.", guia:"GD-57998"},
+  {id:"PED-2026-00577", fecha:"2026-06-25", prod:"Petroil 300 VLS Fuel Oil", cant:"18.000 gal", estado:"Entregado", transp:"Carrotanques del Caribe S.A.S.", guia:"GD-57944"},
+  {id:"PED-2026-00576", fecha:"2026-06-18", prod:"Petroil 100 Mejorador de IFOS", cant:"5.000 gal", estado:"Facturado", transp:"Transportadora Andina de Hidrocarburos", guia:"GD-57889"},
+  {id:"PED-2026-00575", fecha:"2026-06-11", prod:"Petroil 800 HCl", cant:"4.200 gal", estado:"Entregado", transp:"Logística Terpetrol S.A.S.", guia:"GD-57831"}
+];
+
+const FACTURAS = [
+  {id:"FAC-2026-1180", fecha:"2026-08-01", valor:9800000, estado:"Pendiente"},
+  {id:"FAC-2026-1179", fecha:"2026-07-24", valor:2650000, estado:"Pendiente"},
+  {id:"FAC-2026-1178", fecha:"2026-07-19", valor:6100000, estado:"Pagada"},
+  {id:"FAC-2026-1177", fecha:"2026-07-09", valor:8750000, estado:"Pagada"},
+  {id:"FAC-2026-1176", fecha:"2026-06-25", valor:11200000, estado:"Pagada"},
+  {id:"FAC-2026-1175", fecha:"2026-06-11", valor:4980000, estado:"Pagada"}
+];
+
+const CERTIFICADOS = [
+  {t:"Certificado de Calidad", meta:"ISO 9001 · PDF · 1.2 MB", ext:"PDF"},
+  {t:"Certificado Ambiental", meta:"ISO 14001 · PDF · 980 KB", ext:"PDF"},
+  {t:"Certificado de Salud y Seguridad", meta:"ISO 45001 · PDF · 1.0 MB", ext:"PDF"},
+  {t:"Hoja de Seguridad (SDS)", meta:"Petroil 90 - Gasolina Premium · PDF", ext:"PDF"},
+  {t:"Certificado de Análisis", meta:"Lote 2026-07 · PDF · 640 KB", ext:"PDF"}
+];
+
+const COTIZACIONES = [
+  {id:"COT-1054", fecha:"2026-06-02", det:"Petroil 250 Fuel Oil #4 · 20.000 gal", valor:46500000, estado:"Aceptada"},
+  {id:"COT-1055", fecha:"2026-06-20", det:"Petroil 90 - Gasolina Premium · 12.000 gal", valor:38200000, estado:"Vencida"},
+  {id:"COT-1056", fecha:"2026-07-15", det:"Petroil 500 Marine MGO Fuel Oil · 15.000 gal", valor:52900000, estado:"En revisión"},
+  {id:"COT-1057", fecha:"2026-07-30", det:"Petroil 800 G (Green) · 8.000 gal", valor:21400000, estado:"Enviada"},
+  {id:"COT-1058", fecha:"2026-08-02", det:"Petroil 60 Nafta Virgen · 10.000 gal", valor:27100000, estado:"En revisión"}
+];
+
+const PQRS = [
+  {id:"PQR-2026-041", asunto:"Retraso en entrega del pedido PED-2026-00579", estado:"En proceso", resp:"Laura Gómez", fecha:"2026-07-30",
+    steps:[{t:"PQRS radicado",done:true,d:"2026-07-30"},{t:"Asignado a ejecutivo comercial",done:true,d:"2026-07-30"},{t:"En revisión con logística",done:false,d:"2026-08-02"},{t:"Cierre y respuesta al cliente",done:false,d:"Pendiente"}]},
+  {id:"PQR-2026-038", asunto:"Solicitud de duplicado de factura FAC-2026-1176", estado:"Cerrado", resp:"Soporte Facturación", fecha:"2026-06-27",
+    steps:[{t:"PQRS radicado",done:true,d:"2026-06-27"},{t:"Documento reenviado",done:true,d:"2026-06-27"},{t:"Cerrado",done:true,d:"2026-06-27"}]},
+  {id:"PQR-2026-035", asunto:"Consulta sobre ficha técnica Petroil 800 G", estado:"Cerrado", resp:"Soporte Técnico", fecha:"2026-06-15",
+    steps:[{t:"PQRS radicado",done:true,d:"2026-06-15"},{t:"Respuesta técnica enviada",done:true,d:"2026-06-16"},{t:"Cerrado",done:true,d:"2026-06-16"}]},
+  {id:"PQR-2026-033", asunto:"Ajuste de horario de descargue en planta", estado:"Cerrado", resp:"Laura Gómez", fecha:"2026-05-30",
+    steps:[{t:"PQRS radicado",done:true,d:"2026-05-30"},{t:"Coordinado con planta Santa Marta",done:true,d:"2026-05-31"},{t:"Cerrado",done:true,d:"2026-06-02"}]}
+];
+
+const NOTICIAS = [
+  {tag:"Infraestructura", title:"Nueva estación de abastecimiento entra en operación", fecha:"2026-07-22", icon:"pin"},
+  {tag:"Calidad", title:"Actualización de certificados de calidad ISO", fecha:"2026-07-10", icon:"shield"},
+  {tag:"Logística", title:"Nuevos horarios de despacho en planta Santa Marta", fecha:"2026-06-28", icon:"clock"},
+  {tag:"Mantenimiento", title:"Mantenimiento programado en Refinería Santa Marta", fecha:"2026-06-15", icon:"tool"}
+];
+
+const PERFIL = {
+  empresa:"Marítima & Combustibles del Caribe S.A.S.",
+  nit:"900.812.446-3",
+  ciudad:"Santa Marta, Magdalena",
+  contacto:"Carlos Ramírez · Gerente de Compras",
+  correo:"compras@maritimacaribe.com.co",
+  telefono:"+57 300 555 4471",
+  ejecutivo:"Laura Gómez",
+  condicion:"Crédito 30 días",
+  cupoTotal:100000000, cupoUtilizado:12450000
+};
+
+const NOTIFICACIONES = [
+  {icon:"truck", text:"Tu pedido PED-2026-00584 fue despachado.", time:"Hace 3 h"},
+  {icon:"file", text:"Nueva factura disponible: FAC-2026-1180.", time:"Hace 1 día"},
+  {icon:"shield", text:"Tu Certificado de Calidad ya puede descargarse.", time:"Hace 2 días"}
+];
+
+const NAV_ITEMS = [
+  {id:"inicio", label:"Inicio", icon:"home"},
+  {id:"pedidos", label:"Mis Pedidos", icon:"package"},
+  {id:"facturacion", label:"Facturación", icon:"receipt", badge:"2"},
+  {id:"certificados", label:"Certificados", icon:"award"},
+  {id:"fichas", label:"Fichas Técnicas", icon:"file-text"},
+  {id:"cotizaciones", label:"Cotizaciones", icon:"file-signature"},
+  {id:"pqrs", label:"PQRS", icon:"message"},
+  {id:"noticias", label:"Noticias", icon:"news"},
+  {id:"perfil", label:"Mi Perfil", icon:"user"}
+];
+
+const ICONS = {
+  home:'<path d="M4 11.5L12 4l8 7.5"/><path d="M6 10v9h12v-9"/>',
+  package:'<path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/>',
+  receipt:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h6"/>',
+  award:'<circle cx="12" cy="8" r="5"/><path d="M9 12.5L7 21l5-3 5 3-2-8.5"/>',
+  "file-text":'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M9 12h6M9 16h6"/>',
+  "file-signature":'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M9 15c1-1.5 2-1.5 3 0s2 1.5 3 0"/>',
+  message:'<path d="M21 12a8 8 0 01-11.5 7.2L4 20l1.1-4.2A8 8 0 1121 12z"/>',
+  news:'<rect x="3" y="4" width="14" height="16" rx="1.5"/><path d="M17 8h4v10a2 2 0 01-2 2H7"/><path d="M7 8h6M7 11h6M7 14h4"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/>',
+  truck:'<rect x="1" y="7" width="13" height="9"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/>',
+  file:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/>',
+  shield:'<path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/>',
+  pin:'<path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+  tool:'<path d="M14.7 6.3a4 4 0 015.4 5.4L13 19l-3-3 7.1-7.1a4 4 0 01-2.4-2.6z"/><path d="M6 15l3 3-2 2-4-1-1-4 2-2z"/>',
+  eye:'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+  download:'<path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16"/>',
+  check:'<path d="M20 6L9 17l-5-5"/>'
+};
+function icon(name,size){ size=size||14; return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">'+(ICONS[name]||'')+'</svg>'; }
+
+const fmtCOP = n => "$" + n.toLocaleString("es-CO");
+const fmtDate = s => { const d=new Date(s+"T00:00:00"); return d.toLocaleDateString("es-CO",{day:"2-digit",month:"short",year:"numeric"}).replace(".",""); };
+
+function statusBadge(estado){
+  const map = {
+    "Entregado":"badge-success", "Pagada":"badge-success", "Aceptada":"badge-success", "Cerrado":"badge-success",
+    "En tránsito":"badge-info", "En revisión":"badge-info", "En proceso":"badge-info", "Enviada":"badge-info",
+    "Preparación":"badge-warn", "Facturado":"badge-warn", "Pendiente":"badge-warn",
+    "Vencida":"badge-danger"
+  };
+  const cls = map[estado] || "badge-neutral";
+  return '<span class="badge '+cls+'">'+estado+'</span>';
+}
+
+/* ============================================================
+   RENDER: SIDEBAR NAV
+   ============================================================ */
+const sidebarNav = document.getElementById("sidebarNav");
+NAV_ITEMS.forEach(item=>{
+  const btn = document.createElement("button");
+  btn.className = "nav-item" + (item.id==="inicio" ? " active":"");
+  btn.dataset.view = item.id;
+  btn.innerHTML = icon(item.icon,17) + "<span>"+item.label+"</span>" + (item.badge? '<span class="nav-badge">'+item.badge+'</span>':'');
+  btn.addEventListener("click", ()=>goToView(item.id));
+  sidebarNav.appendChild(btn);
+});
+
+function goToView(id){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  const target = document.getElementById("view-"+id);
+  if(target) target.classList.add("active");
+  document.querySelectorAll(".nav-item").forEach(b=>b.classList.toggle("active", b.dataset.view===id));
+  document.getElementById("viewContainer").scrollTop = 0;
+  window.scrollTo({top:0,behavior:"smooth"});
+  closeMobileSidebar();
+  closeDropdowns();
+}
+window.goToView = goToView;
+
+/* ============================================================
+   RENDER: DASHBOARD STAT CARDS
+   ============================================================ */
+const pedidosActivos = PEDIDOS.filter(p=>p.estado!=="Entregado").length;
+const facturasPendientes = FACTURAS.filter(f=>f.estado==="Pendiente");
+const saldoPorPagar = facturasPendientes.reduce((a,f)=>a+f.valor,0);
+
+const STATS = [
+  {icon:"package", accent:"teal", label:"Pedidos activos", value:String(pedidosActivos), foot:"Últ. pedido "+PEDIDOS[0].id},
+  {icon:"truck", accent:"navy", label:"Estado último pedido", value:PEDIDOS[0].estado, foot:PEDIDOS[0].id, isBadge:true},
+  {icon:"receipt", accent:"amber", label:"Facturas pendientes", value:String(facturasPendientes.length), foot:"Saldo "+fmtCOP(saldoPorPagar)},
+  {icon:"pin", accent:"teal", label:"Próxima entrega", value:"06 Ago 2026", foot:"Planta Santa Marta"},
+];
+const statGrid = document.getElementById("statGrid");
+STATS.forEach(s=>{
+  const el = document.createElement("div");
+  el.className = "stat-card accent-"+s.accent;
+  el.innerHTML =
+    '<div class="stat-icon">'+icon(s.icon,17)+'</div>'+
+    '<div class="stat-label">'+s.label+'</div>'+
+    '<div class="stat-value" data-count="'+ (s.isBadge?'':'1') +'">'+(s.isBadge? statusBadge(s.value) : s.value)+'</div>'+
+    '<div class="stat-foot mono">'+s.foot+'</div>';
+  statGrid.appendChild(el);
+});
+// extra card: ejecutivo comercial
+const execCard = document.createElement("div");
+execCard.className = "stat-card accent-navy";
+execCard.innerHTML =
+  '<div class="stat-icon">'+icon("user",17)+'</div>'+
+  '<div class="stat-label">Ejecutivo comercial</div>'+
+  '<div class="stat-value" style="font-size:18px;">'+PERFIL.ejecutivo+'</div>'+
+  '<div class="stat-foot mono">Disponible por WhatsApp</div>';
+statGrid.appendChild(execCard);
+statGrid.style.gridTemplateColumns = "repeat(5,1fr)";
+
+/* ============================================================
+   RENDER: TABLES
+   ============================================================ */
+document.getElementById("pedidosBody").innerHTML = PEDIDOS.map(p=>
+  '<tr>'+
+    '<td class="cell-strong mono">'+p.id+'</td>'+
+    '<td>'+fmtDate(p.fecha)+'</td>'+
+    '<td>'+p.prod+'</td>'+
+    '<td class="cell-mono">'+p.cant+'</td>'+
+    '<td>'+statusBadge(p.estado)+'</td>'+
+    '<td>'+p.transp+'</td>'+
+    '<td class="cell-mono">'+p.guia+'</td>'+
+    '<td class="row-actions">'+
+      '<button class="btn btn-ghost btn-sm" onclick="openPedidoDetalle(\''+p.id+'\')">'+icon("eye",13)+'</button>'+
+      '<button class="btn btn-ghost btn-sm" onclick="simDownload(\'Remisión '+p.id+'\')">'+icon("download",13)+'</button>'+
+    '</td>'+
+  '</tr>'
+).join("");
+
+document.getElementById("facturasBody").innerHTML = FACTURAS.map(f=>
+  '<tr>'+
+    '<td class="cell-strong mono">'+f.id+'</td>'+
+    '<td>'+fmtDate(f.fecha)+'</td>'+
+    '<td class="cell-strong">'+fmtCOP(f.valor)+'</td>'+
+    '<td>'+statusBadge(f.estado)+'</td>'+
+    '<td class="row-actions">'+
+      '<button class="btn btn-ghost btn-sm" onclick="simDownload(\''+f.id+' (PDF)\')">PDF</button>'+
+      '<button class="btn btn-ghost btn-sm" onclick="simDownload(\''+f.id+' (XML)\')">XML</button>'+
+    '</td>'+
+  '</tr>'
+).join("");
+
+document.getElementById("cotizacionesBody").innerHTML = COTIZACIONES.map(c=>
+  '<tr>'+
+    '<td class="cell-strong mono">'+c.id+'</td>'+
+    '<td>'+fmtDate(c.fecha)+'</td>'+
+    '<td>'+c.det+'</td>'+
+    '<td class="cell-strong">'+fmtCOP(c.valor)+'</td>'+
+    '<td>'+statusBadge(c.estado)+'</td>'+
+  '</tr>'
+).join("");
+
+document.getElementById("pqrsBody").innerHTML = PQRS.map(t=>
+  '<tr>'+
+    '<td class="cell-strong mono">'+t.id+'</td>'+
+    '<td>'+t.asunto+'</td>'+
+    '<td>'+statusBadge(t.estado)+'</td>'+
+    '<td>'+t.resp+'</td>'+
+    '<td>'+fmtDate(t.fecha)+'</td>'+
+    '<td><button class="btn btn-ghost btn-sm" onclick="openPqrsSeguimiento(\''+t.id+'\')">Ver seguimiento</button></td>'+
+  '</tr>'
+).join("");
+
+/* ============================================================
+   RENDER: DOC LIBRARIES
+   ============================================================ */
+document.getElementById("certGrid").innerHTML = CERTIFICADOS.map(c=>
+  '<div class="doc-card">'+
+    '<div class="doc-icon">'+c.ext+'</div>'+
+    '<div class="doc-title">'+c.t+'</div>'+
+    '<div class="doc-meta">'+c.meta+'</div>'+
+    '<div class="doc-actions">'+
+      '<button class="btn btn-ghost btn-sm" onclick="simView(\''+c.t+'\')">'+icon("eye",13)+' Visualizar</button>'+
+      '<button class="btn btn-ghost btn-sm" onclick="simDownload(\''+c.t+'\')">'+icon("download",13)+'</button>'+
+    '</div>'+
+  '</div>'
+).join("");
+
+document.getElementById("fichasGrid").innerHTML = PRODUCTS.map(p=>
+  '<div class="doc-card">'+
+    '<div class="doc-icon">PDF</div>'+
+    '<div class="doc-title">'+p+'</div>'+
+    '<div class="doc-meta">Ficha técnica · SDS incluida</div>'+
+    '<div class="doc-actions">'+
+      '<button class="btn btn-ghost btn-sm" onclick="simView(\'Ficha técnica — '+p+'\')">'+icon("eye",13)+' Visualizar</button>'+
+      '<button class="btn btn-ghost btn-sm" onclick="simDownload(\'Ficha técnica — '+p+'\')">'+icon("download",13)+'</button>'+
+    '</div>'+
+  '</div>'
+).join("");
+
+/* ============================================================
+   RENDER: NEWS
+   ============================================================ */
+const newsBg = {
+  pin:"linear-gradient(135deg,#123A5C,#0A2A43)",
+  shield:"linear-gradient(135deg,#17A398,#123A5C)",
+  clock:"linear-gradient(135deg,#2A5D8C,#0A2A43)",
+  tool:"linear-gradient(135deg,#DD7A32,#123A5C)"
+};
+document.getElementById("newsGrid").innerHTML = NOTICIAS.map(n=>
+  '<div class="news-card">'+
+    '<div class="news-thumb" style="background:'+newsBg[n.icon]+';">'+
+      '<span style="color:rgba(255,255,255,.92);">'+icon(n.icon,30)+'</span>'+
+    '</div>'+
+    '<div class="news-body">'+
+      '<span class="news-tag">'+n.tag+'</span>'+
+      '<div class="news-title">'+n.title+'</div>'+
+      '<div class="news-date">'+fmtDate(n.fecha)+'</div>'+
+    '</div>'+
+  '</div>'
+).join("");
+
+/* ============================================================
+   RENDER: NOTIFICATIONS
+   ============================================================ */
+const notifDropdown = document.getElementById("notifDropdown");
+notifDropdown.innerHTML = '<div class="dropdown-head">Notificaciones</div>' + NOTIFICACIONES.map(n=>
+  '<div class="dropdown-item">'+
+    '<div class="di-icon">'+icon(n.icon,15)+'</div>'+
+    '<div><div>'+n.text+'</div><div class="di-time">'+n.time+'</div></div>'+
+  '</div>'
+).join("");
+
+/* ============================================================
+   RENDER: PROFILE
+   ============================================================ */
+const profileFields = [
+  ["Empresa", PERFIL.empresa],["NIT", PERFIL.nit],["Ciudad", PERFIL.ciudad],
+  ["Contacto", PERFIL.contacto],["Correo", PERFIL.correo],["Teléfono", PERFIL.telefono],
+  ["Ejecutivo asignado", PERFIL.ejecutivo],["Condición comercial", PERFIL.condicion]
+];
+document.getElementById("profileInfoGrid").innerHTML = profileFields.map(f=>
+  '<div class="info-item"><div class="info-label">'+f[0]+'</div><div class="info-value">'+f[1]+'</div></div>'
+).join("");
+document.getElementById("glDisponible").textContent = fmtCOP(PERFIL.cupoTotal-PERFIL.cupoUtilizado);
+document.getElementById("glUtilizado").textContent = fmtCOP(PERFIL.cupoUtilizado);
+document.getElementById("glTotal").textContent = fmtCOP(PERFIL.cupoTotal);
+
+/* ============================================================
+   CHARTS — SVG hand-built, sin librerías
+   ============================================================ */
+const SVGNS = "http://www.w3.org/2000/svg";
+function el(tag, attrs){
+  const e = document.createElementNS(SVGNS, tag);
+  for(const k in attrs) e.setAttribute(k, attrs[k]);
+  return e;
+}
+
+/* -- Bar chart: Compras por mes -- */
+function drawBarChart(svgId, labels, values, color){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = "";
+  const W=620,H=230, padL=34, padR=10, padT=10, padB=26;
+  const chartW = W-padL-padR, chartH = H-padT-padB;
+  const max = Math.max(...values)*1.15;
+  const barW = chartW/values.length*0.56;
+  const gap = chartW/values.length;
+
+  [0,0.25,0.5,0.75,1].forEach(t=>{
+    const y = padT + chartH*(1-t);
+    svg.appendChild(el("line",{x1:padL,x2:W-padR,y1:y,y2:y,stroke:"#E1E7EE","stroke-width":1}));
+    svg.appendChild(el("text",{x:4,y:y+3,"font-size":9,fill:"#9AA7B6","font-family":"IBM Plex Mono"})).textContent = Math.round(max*t/1000)+"k";
+  });
+
+  values.forEach((v,i)=>{
+    const x = padL + gap*i + (gap-barW)/2;
+    const targetH = chartH*(v/max);
+    const rect = el("rect",{x:x,y:padT+chartH,width:barW,height:0,rx:4,fill:color});
+    svg.appendChild(rect);
+    requestAnimationFrame(()=>{
+      rect.style.transition = "y .7s cubic-bezier(.2,.8,.2,1) "+(i*0.03)+"s, height .7s cubic-bezier(.2,.8,.2,1) "+(i*0.03)+"s";
+      rect.setAttribute("y", padT+chartH-targetH);
+      rect.setAttribute("height", targetH);
+    });
+    svg.appendChild(el("text",{x:x+barW/2,y:H-8,"text-anchor":"middle","font-size":9.5,fill:"#6B7686","font-family":"IBM Plex Sans"})).textContent = labels[i];
+  });
+}
+
+/* -- Donut chart: distribución por producto -- */
+function drawDonut(svgId, legendId, data){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = "";
+  const cx=110, cy=95, r=68, stroke=26;
+  const total = data.reduce((a,d)=>a+d.value,0);
+  let offset = 0;
+  const circumference = 2*Math.PI*r;
+
+  svg.appendChild(el("circle",{cx,cy,r,fill:"none",stroke:"#EDF1F5","stroke-width":stroke}));
+
+  data.forEach((d,i)=>{
+    const frac = d.value/total;
+    const len = circumference*frac;
+    const circle = el("circle",{
+      cx,cy,r,fill:"none",stroke:d.color,"stroke-width":stroke,
+      "stroke-dasharray": "0 "+circumference,
+      "stroke-dashoffset": -offset,
+      "stroke-linecap":"butt",
+      transform:"rotate(-90 "+cx+" "+cy+")"
+    });
+    svg.appendChild(circle);
+    requestAnimationFrame(()=>{
+      circle.style.transition = "stroke-dasharray .8s ease "+(i*0.08)+"s";
+      circle.setAttribute("stroke-dasharray", len+" "+circumference);
+    });
+    offset += len;
+  });
+  svg.appendChild(el("text",{x:cx,y:cy-4,"text-anchor":"middle","font-size":18,"font-weight":700,fill:"#0F1720","font-family":"Space Grotesk"})).textContent = total+"%";
+  svg.appendChild(el("text",{x:cx,y:cy+13,"text-anchor":"middle","font-size":8.5,fill:"#9AA7B6","font-family":"IBM Plex Mono"})).textContent = "MEZCLA";
+
+  document.getElementById(legendId).innerHTML = data.map(d=>
+    '<span class="legend-dot"><span style="background:'+d.color+';"></span>'+d.label+' · '+d.value+'%</span>'
+  ).join("");
+}
+
+/* -- Line chart: consumo (2 series) -- */
+function drawLineChart(svgId, legendId, labels, series){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = "";
+  const W=620,H=200, padL=30, padR=12, padT=14, padB=24;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const allVals = series.flatMap(s=>s.values);
+  const max = Math.max(...allVals)*1.15, min=0;
+  const stepX = chartW/(labels.length-1);
+
+  [0,0.5,1].forEach(t=>{
+    const y = padT+chartH*(1-t);
+    svg.appendChild(el("line",{x1:padL,x2:W-padR,y1:y,y2:y,stroke:"#EDF1F5","stroke-width":1}));
+  });
+  labels.forEach((lb,i)=>{
+    if(i%2!==0) return;
+    svg.appendChild(el("text",{x:padL+stepX*i,y:H-6,"text-anchor":"middle","font-size":9,fill:"#9AA7B6","font-family":"IBM Plex Sans"})).textContent = lb;
+  });
+
+  series.forEach((s,si)=>{
+    const pts = s.values.map((v,i)=>[padL+stepX*i, padT+chartH*(1-(v-min)/(max-min))]);
+    const d = pts.map((p,i)=> (i===0?"M":"L")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+    const path = el("path",{d,fill:"none",stroke:s.color,"stroke-width":2.4,"stroke-linecap":"round","stroke-linejoin":"round"});
+    const len = 900;
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    svg.appendChild(path);
+    requestAnimationFrame(()=>{
+      path.style.transition = "stroke-dashoffset 1.1s cubic-bezier(.2,.8,.2,1) "+(si*0.15)+"s";
+      path.style.strokeDashoffset = 0;
+    });
+    pts.forEach(p=>{
+      svg.appendChild(el("circle",{cx:p[0],cy:p[1],r:2.6,fill:s.color}));
+    });
+  });
+
+  document.getElementById(legendId).innerHTML = series.map(s=>
+    '<span class="legend-dot"><span style="background:'+s.color+';"></span>'+s.label+'</span>'
+  ).join("");
+}
+
+/* -- Area chart: evolución de compras -- */
+function drawAreaChart(svgId, labels, values, color){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = "";
+  const W=380,H=200, padL=8, padR=8, padT=14, padB=24;
+  const chartW=W-padL-padR, chartH=H-padT-padB;
+  const max=Math.max(...values)*1.1;
+  const stepX = chartW/(values.length-1);
+
+  const gradId = "areaGrad_"+svgId;
+  const defs = el("defs",{});
+  const grad = el("linearGradient",{id:gradId,x1:0,y1:0,x2:0,y2:1});
+  grad.appendChild(el("stop",{offset:"0%","stop-color":color,"stop-opacity":0.32}));
+  grad.appendChild(el("stop",{offset:"100%","stop-color":color,"stop-opacity":0}));
+  defs.appendChild(grad); svg.appendChild(defs);
+
+  const pts = values.map((v,i)=>[padL+stepX*i, padT+chartH*(1-v/max)]);
+  const linePath = pts.map((p,i)=>(i===0?"M":"L")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  const areaPath = linePath+" L "+pts[pts.length-1][0]+" "+(padT+chartH)+" L "+pts[0][0]+" "+(padT+chartH)+" Z";
+
+  const area = el("path",{d:areaPath, fill:"url(#"+gradId+")", opacity:0});
+  svg.appendChild(area);
+  const line = el("path",{d:linePath, fill:"none", stroke:color, "stroke-width":2.4, "stroke-linecap":"round","stroke-linejoin":"round"});
+  const len=1200; line.style.strokeDasharray=len; line.style.strokeDashoffset=len;
+  svg.appendChild(line);
+
+  requestAnimationFrame(()=>{
+    area.style.transition="opacity .8s ease .3s"; area.style.opacity=1;
+    line.style.transition="stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)"; line.style.strokeDashoffset=0;
+  });
+
+  labels.forEach((lb,i)=>{
+    if(i%3!==0 && i!==labels.length-1) return;
+    svg.appendChild(el("text",{x:pts[i][0],y:H-6,"text-anchor":"middle","font-size":8.5,fill:"#9AA7B6","font-family":"IBM Plex Sans"})).textContent=lb;
+  });
+}
+
+/* -- Gauge: cupo de crédito (signature element) -- */
+function drawGauge(svgId, pct, colorMain){
+  const svg = document.getElementById(svgId);
+  svg.innerHTML = "";
+  const cx=110, cy=110, r=86, stroke=16;
+  function arcPoint(angleDeg){
+    const a = (angleDeg*Math.PI)/180;
+    return [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+  }
+  function arcPath(startDeg, endDeg){
+    const [x1,y1]=arcPoint(startDeg), [x2,y2]=arcPoint(endDeg);
+    const large = (endDeg-startDeg)>180 ? 1:0;
+    return "M "+x1+" "+y1+" A "+r+" "+r+" 0 "+large+" 1 "+x2+" "+y2;
+  }
+  // background arc 180deg -> 360deg (semicircle bottom half, gauge style)
+  svg.appendChild(el("path",{d:arcPath(180,360), fill:"none", stroke:"#EDF1F5", "stroke-width":stroke, "stroke-linecap":"round"}));
+  const valEnd = 180 + 180*(pct/100);
+  const valArc = el("path",{d:arcPath(180,180), fill:"none", stroke:colorMain, "stroke-width":stroke, "stroke-linecap":"round"});
+  svg.appendChild(valArc);
+  requestAnimationFrame(()=>{
+    valArc.style.transition = "d 1s cubic-bezier(.2,.8,.2,1)";
+    valArc.setAttribute("d", arcPath(180, valEnd));
+  });
+  // needle
+  const needleAngle = 180 + 180*(pct/100);
+  const [nx,ny] = arcPoint(needleAngle);
+  const needle = el("line",{x1:cx,y1:cy,x2:cx,y2:cy, stroke:"#0A2A43","stroke-width":3,"stroke-linecap":"round"});
+  svg.appendChild(needle);
+  svg.appendChild(el("circle",{cx,cy,r:6,fill:"#0A2A43"}));
+  requestAnimationFrame(()=>{
+    needle.style.transition="x2 1s cubic-bezier(.2,.8,.2,1), y2 1s cubic-bezier(.2,.8,.2,1)";
+    needle.setAttribute("x2", nx); needle.setAttribute("y2", ny);
+  });
+  // scale ticks
+  [0,25,50,75,100].forEach(t=>{
+    const deg = 180+180*(t/100);
+    const [ox,oy] = arcPoint(deg);
+    svg.appendChild(el("text",{x:ox, y:oy + (deg===270? -66: (deg<270? 14: 14)), "text-anchor":"middle","font-size":8.5, fill:"#9AA7B6","font-family":"IBM Plex Mono"})).textContent=t+"%";
+  });
+}
+
+/* ============================================================
+   INIT CHARTS ON DASHBOARD LOAD
+   ============================================================ */
+let dashboardInitialized = false;
+function initDashboardCharts(){
+  if(dashboardInitialized) return;
+  dashboardInitialized = true;
+
+  const months = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago"];
+  const comprasValues = [42000,38500,51000,47500,60000,55500,68000,64000];
+  drawBarChart("chartCompras", months, comprasValues, "#17A398");
+
+  drawDonut("chartDona","donaLegend",[
+    {label:"Fuel Oil", value:34, color:"#0A2A43"},
+    {label:"Gasolina", value:26, color:"#17A398"},
+    {label:"Diésel Marino", value:22, color:"#F2924A"},
+    {label:"Nafta", value:12, color:"#8FE7DC"},
+    {label:"Otros", value:6, color:"#C9D2DC"}
+  ]);
+
+  drawLineChart("chartConsumo","consumoLegend", months, [
+    {label:"Diésel Marino", color:"#17A398", values:[12000,13500,12800,15000,16200,15500,17800,18200]},
+    {label:"Fuel Oil", color:"#F2924A", values:[9000,9600,11200,10500,12800,13100,14000,13600]}
+  ]);
+
+  const yearMonths = ["Sep","Oct","Nov","Dic","Ene","Feb","Mar","Abr","May","Jun","Jul","Ago"];
+  const evolValues = [58,61,55,70,64,72,69,78,82,80,88,94].map(v=>v*620000/94);
+  drawAreaChart("chartEvolucion", yearMonths, evolValues, "#123A5C");
+
+  animateCountUps();
+}
+
+function animateCountUps(){
+  document.querySelectorAll('.stat-value[data-count="1"]').forEach(elx=>{
+    const raw = elx.textContent.trim();
+    const numMatch = raw.replace(/[.\s]/g,"").match(/^\D*(\d+)(.*)$/);
+    if(!numMatch) return;
+    const target = parseInt(numMatch[1],10);
+    if(isNaN(target) || target>9999) return;
+    const prefix = raw.slice(0, raw.indexOf(numMatch[1]));
+    const suffix = numMatch[2] || "";
+    let cur = 0;
+    const dur = 700, start = performance.now();
+    function step(now){
+      const p = Math.min(1,(now-start)/dur);
+      cur = Math.round(target*p);
+      elx.textContent = prefix + cur + suffix;
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  });
+}
+
+/* profile gauge init (lazy, first time profile view opened) */
+let gaugeInitialized = false;
+function initGauge(){
+  if(gaugeInitialized) return;
+  gaugeInitialized = true;
+  const pct = Math.round((PERFIL.cupoUtilizado/PERFIL.cupoTotal)*100);
+  drawGauge("creditGauge", pct, pct>70? "#C0392B" : pct>40? "#F2924A" : "#17A398");
+  document.getElementById("gaugeValueLabel").textContent = pct+"%";
+}
+
+/* ============================================================
+   LOGIN FLOW
+   ============================================================ */
+const loginForm = document.getElementById("loginForm");
+const loginBtn = document.getElementById("loginBtn");
+loginForm.addEventListener("submit", function(ev){
+  ev.preventDefault();
+  loginBtn.classList.add("loading");
+  loginBtn.disabled = true;
+  setTimeout(()=>{
+    document.getElementById("loginScreen").style.display = "none";
+    const shell = document.getElementById("portalShell");
+    shell.classList.add("active");
+    initDashboardCharts();
+    document.body.style.background = "var(--gray-50)";
+  }, 680);
+});
+
+/* ============================================================
+   NAV: EXTEND goToView TO LAZY-INIT GAUGE
+   ============================================================ */
+const _origGoToView = goToView;
+goToView = function(id){
+  _origGoToView(id);
+  if(id==="perfil") initGauge();
+};
+window.goToView = goToView;
+
+/* ============================================================
+   MOBILE SIDEBAR
+   ============================================================ */
+const sidebar = document.getElementById("sidebar");
+const scrim = document.getElementById("sidebarScrim");
+document.getElementById("mobileMenuBtn").addEventListener("click", ()=>{
+  sidebar.classList.add("open"); scrim.classList.add("open");
+});
+scrim.addEventListener("click", closeMobileSidebar);
+function closeMobileSidebar(){ sidebar.classList.remove("open"); scrim.classList.remove("open"); }
+
+/* ============================================================
+   DROPDOWNS: notifications & user menu
+   ============================================================ */
+const notifBtn = document.getElementById("notifBtn");
+const userChip = document.getElementById("userChip");
+const userDropdown = document.getElementById("userDropdown");
+notifBtn.addEventListener("click", (e)=>{ e.stopPropagation(); toggleDropdown(notifDropdown); });
+userChip.addEventListener("click", (e)=>{ e.stopPropagation(); toggleDropdown(userDropdown); });
+document.addEventListener("click", closeDropdowns);
+function toggleDropdown(dd){
+  const wasOpen = dd.classList.contains("open");
+  closeDropdowns();
+  if(!wasOpen) dd.classList.add("open");
+}
+function closeDropdowns(){
+  notifDropdown.classList.remove("open");
+  userDropdown.classList.remove("open");
+}
+
+/* ============================================================
+   MODAL: detalle de pedido / seguimiento PQRS
+   ============================================================ */
+const modalScrim = document.getElementById("modalScrim");
+const modalTitle = document.getElementById("modalTitle");
+const modalBody = document.getElementById("modalBody");
+document.getElementById("modalClose").addEventListener("click", closeModal);
+modalScrim.addEventListener("click", (e)=>{ if(e.target===modalScrim) closeModal(); });
+function openModal(title, bodyHtml){
+  modalTitle.textContent = title;
+  modalBody.innerHTML = bodyHtml;
+  modalScrim.classList.add("open");
+}
+function closeModal(){ modalScrim.classList.remove("open"); }
+
+window.openPedidoDetalle = function(id){
+  const p = PEDIDOS.find(x=>x.id===id);
+  if(!p) return;
+  openModal("Detalle del pedido", 
+    '<div class="profile-info-grid" style="grid-template-columns:1fr 1fr;">'+
+      infoItem("Pedido", p.id)+infoItem("Fecha", fmtDate(p.fecha))+
+      infoItem("Producto", p.prod)+infoItem("Cantidad", p.cant)+
+      infoItem("Estado", statusBadge(p.estado))+infoItem("Transportadora", p.transp)+
+      infoItem("Guía de remisión", p.guia)+infoItem("Ejecutivo comercial", PERFIL.ejecutivo)+
+    '</div>'+
+    '<div style="margin-top:16px; display:flex; gap:10px;">'+
+      '<button class="btn btn-primary btn-sm" onclick="simDownload(\'Remisión '+p.id+'\')">'+icon("download",13)+' Descargar remisión</button>'+
+    '</div>'
+  );
+};
+function infoItem(label,value){
+  return '<div class="info-item"><div class="info-label">'+label+'</div><div class="info-value" style="font-size:13px;">'+value+'</div></div>';
+}
+
+window.openPqrsSeguimiento = function(id){
+  const t = PQRS.find(x=>x.id===id);
+  if(!t) return;
+  openModal("Seguimiento — "+t.id,
+    '<p style="font-size:13px; color:var(--gray-700); margin-bottom:16px;">'+t.asunto+'</p>'+
+    '<ul class="timeline">'+
+      t.steps.map(s=>'<li><div class="tl-dot'+(s.done?' done':'')+'"></div><div><div class="tl-title">'+s.t+'</div><div class="tl-date">'+s.d+'</div></div></li>').join("")+
+    '</ul>'
+  );
+};
+
+/* ============================================================
+   TOAST / SIMULATED ACTIONS
+   ============================================================ */
+function showToast(msg, kind){
+  const stack = document.getElementById("toastStack");
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.innerHTML = icon(kind==="success"?"check":"file",15) + '<span>'+msg+'</span>';
+  stack.appendChild(t);
+  setTimeout(()=>{
+    t.classList.add("leaving");
+    setTimeout(()=>t.remove(), 260);
+  }, 3200);
+}
+window.showToast = showToast;
+window.simDownload = function(name){ showToast('Descarga simulada: '+name+'.', 'success'); };
+window.simView = function(name){ showToast('Vista previa simulada: '+name+'.', 'info'); };
+
+})();
+</script>
+</body>
+</html>

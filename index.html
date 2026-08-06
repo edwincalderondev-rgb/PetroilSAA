@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Petroil S.A. — Mejorando el aire que respiramos</title>
+<link rel="icon" type="image/png" sizes="270x270" href="https://petroilsa.com/wp-content/uploads/2022/09/cropped-favicon-petroil-270x270.png">
+<link rel="apple-touch-icon" href="https://petroilsa.com/wp-content/uploads/2022/09/cropped-favicon-petroil-270x270.png">
+<meta name="theme-color" content="#0A2A43">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="petroil-styles.css">
+</head>
+<body>
+
+<a href="#main" class="skip-link">Saltar al contenido</a>
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="https://petroilsa.com/wp-content/uploads/2022/09/cropped-logo-petroil.png" alt="Petroil S.A.">
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#productos">Productos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#innovacion" class="current">Innovación</a>
+      <a href="portal-clientes.html">Clientes<span class="badge-soon">Nuevo</span></a>
+      <a href="#nosotros">¿Quiénes somos?</a>
+      <a href="#noticias">Noticias</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang-select" id="langSelect">
+        <button class="lang-btn" id="langBtn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+          ES
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="lang-dropdown">
+          <a href="#">English</a>
+          <a href="#">Español</a>
+          <a href="#">Português</a>
+        </div>
+      </div>
+      <a href="#contacto" class="btn-contacto">Contacto</a>
+      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero hero-video-mode">
+    <video class="hero-bg-media" autoplay loop muted playsinline poster="image_470525.jpg">
+      <source src="Petroil animado.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+
+    <div class="hero-inner">
+      <div class="hero-content">
+        <span class="hero-badge"><span class="pulse-dot"></span> Refinería de hidrocarburos · Colombia</span>
+        <h1>Mejorando el aire que <b>respiramos.</b></h1>
+        <p class="lead">Lideramos una nueva generación de soluciones energéticas. Desarrollamos combustibles más limpios y eficientes, impulsando la innovación, el crecimiento sostenible y el desarrollo energético de Colombia y la región.</p>
+        <div class="hero-ctas">
+          <a href="#productos" class="btn-primary">
+            Ver productos
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#servicios" class="btn-outline">Nuestros servicios</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pillars reveal">
+    <div class="container">
+      <div class="pillars-head">
+        <span class="eyebrow">Nuestra filosofía</span>
+        <h2>Líderes en producción de combustibles más limpios</h2>
+      </div>
+      <div class="pillars-grid">
+        <div class="pillar-card">
+          <div class="pillar-media"><div class="pillar-blob"></div><img src="https://petroilsa.com/wp-content/uploads/2023/06/ave1.png" alt="Protege"></div>
+          <h3>Protege</h3>
+          <p>Petroil es la primera refinería de América Latina dedicada a diseñar y fabricar combustibles amigables con el medio ambiente.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-media"><div class="pillar-blob"></div><img src="https://petroilsa.com/wp-content/uploads/2023/06/ave3.png" alt="Preserva"></div>
+          <h3>Preserva</h3>
+          <p>Aportamos soluciones innovadoras para el desarrollo sostenible.</p>
+        </div>
+        <div class="pillar-card">
+          <div class="pillar-media"><div class="pillar-blob"></div><img src="https://petroilsa.com/wp-content/uploads/2023/06/ave4.png" alt="Cuida"></div>
+          <h3>Cuida</h3>
+          <p>Trabajamos para hacer combustibles mejores y más limpios, cuidando cada etapa del proceso de refinación.</p>
+        </div>
+      </div>
+      <p class="pillar-quote">"Petroil trabaja para hacer combustibles mejores y más limpios, mejorando el aire que respiramos."</p>
+    </div>
+  </section>
+
+  <section class="alliances reveal">
+    <span class="eyebrow">Alianzas estratégicas</span>
+    <div class="marquee">
+      <div class="marquee-track">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-ecos.png" alt="Ecos">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-ecopetrol.png" alt="Ecopetrol">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo3.avif" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-grupo2.png" alt="Grupo">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-hocol.jpg" alt="Hocol">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo7.png" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-petrobras.gif" alt="Petrobras">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-primax2.png" alt="Primax">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-esquivensa.png" alt="Esquivensa">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo11.webp" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo14.png" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-ecos.png" alt="Ecos">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-ecopetrol.png" alt="Ecopetrol">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo3.avif" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-grupo2.png" alt="Grupo">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-hocol.jpg" alt="Hocol">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo7.png" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-petrobras.gif" alt="Petrobras">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-primax2.png" alt="Primax">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-esquivensa.png" alt="Esquivensa">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo11.webp" alt="Aliado">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/alianza-logo14.png" alt="Aliado">
+      </div>
+    </div>
+  </section>
+
+  <section class="uses reveal" id="servicios">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Aplicaciones</span>
+        <h2>Combustibles diseñados para cada operación</h2>
+        <p>Trabajamos en el diseño y producción de combustibles cuyo uso contribuye a reducir significativamente las emisiones de gases de efecto invernadero.</p>
+      </div>
+      <div class="uses-grid">
+        <a class="use-card" href="https://petroilsa.com/servicios/">
+          <div class="use-media"><img src="https://petroilsa.com/wp-content/uploads/2022/09/3.png" alt="Uso marino" loading="lazy"></div>
+          <div class="use-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v9m0 0l-4 3m4-3l4 3M5 14c0 4 3 7 7 8 4-1 7-4 7-8"/></svg></div>
+          <div class="use-body">
+            <h4>Uso marino</h4>
+            <p>MGO, VLSFO y HSFO para todo tipo de embarcaciones, bajo la norma ISO 8217/2017 para IMO 2020.</p>
+          </div>
+        </a>
+        <a class="use-card" href="https://petroilsa.com/servicios/">
+          <div class="use-media"><img src="https://petroilsa.com/wp-content/uploads/2022/09/4.png" alt="Uso industrial" loading="lazy"></div>
+          <div class="use-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21V9l6 3V9l6 3V6l6 3v12H3z"/></svg></div>
+          <div class="use-body">
+            <h4>Uso industrial</h4>
+            <p>Combustibles a la medida para transporte de carga, maquinaria, calderas y generación de energía.</p>
+          </div>
+        </a>
+        <a class="use-card" href="https://petroilsa.com/servicios/">
+          <div class="use-media"><img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil_fotosplanta_60.jpg" alt="Equipos de minería" loading="lazy"></div>
+          <div class="use-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 20l6-11 4 6 3-4 5 9H3z"/></svg></div>
+          <div class="use-body">
+            <h4>Equipos de minería</h4>
+            <p>Formulaciones de alto rendimiento para maquinaria pesada y operaciones extractivas.</p>
+          </div>
+        </a>
+        <a class="use-card" href="https://petroilsa.com/servicios/">
+          <div class="use-media"><img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil_fotosplanta_46.jpg" alt="Motores estacionarios" loading="lazy"></div>
+          <div class="use-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1 1.56V21a2 2 0 11-4 0v-.09a1.7 1.7 0 00-1-1.56 1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.7 1.7 0 00.34-1.87 1.7 1.7 0 00-1.56-1H3a2 2 0 110-4h.09a1.7 1.7 0 001.56-1 1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 112.83-2.83l.06.06a1.7 1.7 0 001.87.34H9a1.7 1.7 0 001-1.56V3a2 2 0 114 0v.09a1.7 1.7 0 001 1.56 1.7 1.7 0 001.87-.34l.06-.06a2 2 0 112.83 2.83l-.06.06a1.7 1.7 0 00-.34 1.87V9a1.7 1.7 0 001.56 1H21a2 2 0 110 4h-.09a1.7 1.7 0 00-1.56 1z"/></svg></div>
+          <div class="use-body">
+            <h4>Motores estacionarios</h4>
+            <p>Soluciones para plantas de generación y motores de operación continua.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="products-strip reveal" id="productos">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Portafolio</span>
+        <h2>Nuestros productos</h2>
+        <p>Cada línea Petroil se identifica con un código propio de nuestro sistema de clasificación de combustibles.</p>
+      </div>
+
+      <div class="products-grid">
+        
+        <a class="product-card" href="ficha-tecnica-petroil-40-a-max.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil A MAX.png" alt="Petroil 40 A MAX" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil A MAX_gwr_video_mvp.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-40</div>
+            <div class="product-name">Petroil 40 A MAX</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-50-10.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 50 10.webp" alt="Petroil 50 10 – ULSD Premium" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 50 10_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-50/10</div>
+            <div class="product-name">50 10 · ULSD Premium</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-60.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/60 Nafta Virge.png" alt="Nafta Virgen" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/60 Nafta Virge_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-60</div>
+            <div class="product-name">Nafta Virgen</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-90.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 90 gasolina premium.png" alt="Gasolina premium" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 90 gasolina premium_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-90</div>
+            <div class="product-name">Gasolina premium</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-100-mifos.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 100 mejorador de ifos.png" alt="Mejorador de IFOS" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 100 mejorador de ifos_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-100</div>
+            <div class="product-name">Mejorador de IFOS</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-250.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 250 Fuel Oil.png" alt="Fuel Oil #4" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 90 gasolina premium_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-250</div>
+            <div class="product-name">Fuel Oil #4</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-300.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 300 VLS fuel oil.png" alt="VLS Fuel Oil" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 300 VLS fuel oil_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-300</div>
+            <div class="product-name">VLS Fuel Oil</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-500.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 500 Marine.png" alt="Marine MGO F.O.4" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 500 Marine_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-500</div>
+            <div class="product-name">Marine MGO F.O.4</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-800-g.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 800 G.png" alt="Petroil 800 G Green" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 800 G_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-800 G</div>
+            <div class="product-name">Green</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-800-hc.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/Petroil 800 HCI.png" alt="Petroil 800 HCl" loading="lazy">
+            <video class="product-video" loop muted playsinline preload="none">
+              <source src="vids/Petroil 800 HCI_gwr_video_mvp.mp4" type="video/mp4">
+            </video>          
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-800 HCl</div>
+            <div class="product-name">Petroil 800 HCl</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-87-r.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/En desarrollo.png" alt="Petroil 87 R Gasolina Corriente" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-87 R</div>
+            <div class="product-name">87 R Gasolina Corriente</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-rf-110.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/En desarrollo.png" alt="Petroil RF 110+ Racing Fuel" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-code">RF-110+</div>
+            <div class="product-name">RF 110+ Racing Fuel</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <!-- <a class="product-card" href="ficha-tecnica-petroil-rf-105.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/En desarrollo.png" alt="Petroil RF 105+ Racing Fuel" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-code">RF-105+</div>
+            <div class="product-name">RF 105+ Racing Fuel</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a> -->
+
+        <a class="product-card" href="ficha-tecnica-petroil-100-plus-racing.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/En desarrollo.png" alt="Petroil 100+ Racing Fuel" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-code">RF-100+</div>
+            <div class="product-name">100+ Racing Fuel</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-230-ms.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/En desarrollo.png" alt="Petroil 230 MS Varsol" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-230</div>
+            <div class="product-name">230 MS · Varsol</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+        <a class="product-card" href="ficha-tecnica-petroil-70-kerosene.html">
+          <div class="product-img-wrap">
+            <img class="product-poster" src="img/En desarrollo.png" alt="Petroil 70 Kerosene" loading="lazy">
+          </div>
+          <div class="product-info">
+            <div class="product-code">P-70</div>
+            <div class="product-name">70 Kerosene</div>
+            <span class="product-arrow">Ver ficha técnica →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="commitments reveal" id="innovacion">
+    <div class="container">
+      <div class="section-head" style="text-align:left; margin-bottom:36px;">
+        <span class="eyebrow">Gestión y sostenibilidad</span>
+        <h2>Compromisos que sostienen nuestra operación</h2>
+      </div>
+
+      <div class="commit-grid">
+        <div class="commit-card">
+          <div class="commit-thumb">
+            <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil_fotosplanta_29.jpg" alt="Sistema de Gestión Integrada SGI" loading="lazy">
+            <span class="tag">SGI</span>
+          </div>
+          <div class="commit-body">
+            <h3>Sistema de Gestión Integrada</h3>
+            <p>Nuestro Sistema de Gestión Integrada articula la calidad, la seguridad y la gestión ambiental bajo un mismo marco de trabajo, alineado con las normas ISO 9001, ISO 45001 e ISO 14001 que hoy nos certifican.</p>
+            <a href="sgi.html">Ver más información →</a>
+          </div>
+        </div>
+
+        <div class="commit-card">
+          <div class="commit-thumb">
+            <img src="https://petroilsa.com/wp-content/uploads/2026/06/equipo-3.jpg" alt="Compromiso social corporativo" loading="lazy">
+            <span class="tag">Comunidad</span>
+          </div>
+          <div class="commit-body">
+            <h3>Compromiso social corporativo</h3>
+            <p>Impulsamos programas de formación técnica, apoyamos iniciativas locales de emprendimiento y destinamos recursos a proyectos de infraestructura comunitaria en Santa Marta y su área de influencia.</p>
+            <a href="compromiso-social.html">Ver más información →</a>
+          </div>
+        </div>
+
+        <div class="commit-card">
+          <div class="commit-thumb">
+            <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil_fotosplanta_48.jpg" alt="Responsabilidad ambiental" loading="lazy">
+            <span class="tag">Ambiental</span>
+          </div>
+          <div class="commit-body">
+            <h3>Responsabilidad ambiental</h3>
+            <p>Monitoreamos de forma permanente las emisiones de nuestros procesos de refinación, con la meta de reducir año a año la huella de carbono de nuestros combustibles.</p>
+            <a href="responsabilidad-ambiental.html">Ver más información →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="news reveal" id="noticias">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Actualidad</span>
+        <h2>Publicaciones y noticias</h2>
+      </div>
+      <div class="news-grid">
+        <div class="news-card">
+          <div class="news-thumb">
+            <img src="https://petroilsa.com/wp-content/uploads/2026/07/freedom250-portada-final.jpg" alt="Freedom 250" loading="lazy">
+            <span>Institucional</span>
+          </div>
+          <div class="news-body">
+            <h3>Freedom 250: una celebración que reafirma el valor de la cooperación entre Colombia y Estados Unidos</h3>
+            <a class="readmore" href="https://petroilsa.com/freedom-250-colombia-estados-unidos-petroil/">Ver noticia »</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-thumb">
+            <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil_fotosplanta_60.jpg" alt="Ministerio de Minas y Energía" loading="lazy">
+            <span>Regulatorio</span>
+          </div>
+          <div class="news-body">
+            <h3>El Ministerio de Minas y Energía autorizó la producción y comercialización nacional de combustibles a Petroil S.A.</h3>
+            <a class="readmore" href="https://petroilsa.com/el-ministerio-de-minas-y-energia-autorizo-la-produccion-y-comercializacion-nacional-de-combustibles-a-petroil-s-a/">Ver noticia »</a>
+          </div>
+        </div>
+        <div class="news-card">
+          <div class="news-thumb">
+            <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil_fotosplanta_29.jpg" alt="Certificación ISO" loading="lazy">
+            <span>Certificación</span>
+          </div>
+          <div class="news-body">
+            <h3>Certificación bajo la trinorma ISO 9001, ISO 14001 e ISO 45001</h3>
+            <a class="readmore" href="https://petroilsa.com/certificacion-bajo-la-trinorma-iso-9001-iso-14001-e-iso-45001/">Ver noticia »</a>
+          </div>
+        </div>
+      </div>
+      <div class="news-foot">
+        <a class="btn-outline dark" href="https://petroilsa.com/noticias/">Ver todas las noticias</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="about reveal" id="nosotros">
+    <div class="container about-grid">
+      <div class="about-photos">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/equipo-1.png" alt="Equipo Petroil">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/equipo-2.jpg" alt="Equipo Petroil">
+        <img src="https://petroilsa.com/wp-content/uploads/2026/06/equipo-3.jpg" alt="Equipo Petroil">
+      </div>
+      <div class="about-text">
+        <span class="eyebrow">Sobre nosotros</span>
+        <h2>Líderes en producción de combustibles más eficientes</h2>
+        <p>Nuestro compromiso va más allá de prestar servicios de calidad a nuestros clientes o de esforzarnos por el cumplimiento de sus metas corporativas.</p>
+        <a href="https://petroilsa.com/quienes-somos/" class="btn-primary" style="margin-top:24px; background:var(--navy); color:#fff;">Saber más</a>
+        <div class="iso-row">
+          <img src="https://petroilsa.com/wp-content/uploads/2022/10/logo-iso.png" alt="Certificación ISO">
+          <p style="max-width:340px;">Sistema de gestión integrado certificado en Calidad ISO 9001, Salud y Seguridad ISO 45001 y Gestión Ambiental ISO 14001.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq reveal" id="preguntas-frecuentes">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Resolvemos tus dudas</span>
+        <h2>Preguntas frecuentes</h2>
+        <p>Lo que más nos preguntan clientes, proveedores y comunidades sobre nuestra operación como refinería de hidrocarburos.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>¿Qué hace exactamente una refinería de hidrocarburos como Petroil?</summary>
+          <div class="faq-answer"><p>Transformamos crudo y otras materias primas en combustibles terminados —como fuel oil, nafta, gasolina y VLSFO— mediante procesos de destilación, mezcla y tratamiento, ajustando cada producto a las especificaciones técnicas que exige cada industria: marítima, industrial, minera o de generación eléctrica.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué diferencia a los combustibles Petroil de los convencionales?</summary>
+          <div class="faq-answer"><p>Diseñamos cada línea de producto para reducir emisiones de gases de efecto invernadero frente a alternativas convencionales, sin sacrificar el rendimiento. Cada combustible se identifica con un código propio dentro de nuestro sistema de clasificación, formulado para el uso específico al que va destinado.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué certificaciones respaldan la operación de la refinería?</summary>
+          <div class="faq-answer"><p>Contamos con la trinorma ISO 9001 (Calidad), ISO 45001 (Seguridad y Salud en el Trabajo) e ISO 14001 (Gestión Ambiental), integradas bajo un único Sistema de Gestión Integrada que audita procesos, indicadores y mejora continua de forma periódica.</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué es la transición energética?</summary>
+          <div class="faq-answer"><p>En 2015, durante la XXI Conferencia sobre Cambio Climático (COP 21), 195 países acordaron el Acuerdo de París, un acuerdo global para abordar el cambio climático, así como sus efectos en el planeta y la sociedad.
+El acuerdo tiene como objetivo reducir las emisiones de carbono a nivel global y limitar el calentamiento global a menos de dos grados centígrados. La transición energética es un proceso de cambio de una forma de producción de energía a otra, e incluye fuentes de energía renovables y no renovables. Entre los cambios se encuentra el reemplazo de combustibles fósiles, como el carbón y el petróleo, por fuentes renovables, como la energía solar y la eólica. La transición de los combustibles fósiles a las fuentes renovables llevará tiempo, pero al final valdrá la pena porque es la clave para mitigar los impactos ambientales de fenómenos como el cambio climático y la contaminación del aire.
+</p></div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Qué son los combustibles de transición energética?</summary>
+          <div class="faq-answer"><p>Se les llama a los combustibles que son fuentes de energía “puente” los cuales han sido cuidadosamente diseñados para reducir la huella de carbono al lograr una reducción significativa en las emisiones de gases de efecto invernadero como: CO, CO2, SOX, N2O2, NOX, CH4, compuestos orgánicos distintos al metano, aromáticos, olefinas, cetonas, aldehídos, poli aromáticos y material particulado MP10 y MP2.5. Se utilizan mientras se logra la adopción total y el desarrollo de infraestructuras para energías 100 % renovables. </p></div>
+        </details>
+        <details class="faq-item">
+          <summary>¿Cómo puedo convertirme en cliente o aliado comercial de Petroil?</summary>
+          <div class="faq-answer"><p>Puedes escribirnos por WhatsApp o correo electrónico para ser contactado por el área comercial, que evalúa el volumen, tipo de combustible y condiciones logísticas requeridas para diseñar una propuesta a la medida de tu operación.</p></div>
+        </details>
+
+<details class="faq-item">
+  <summary>¿Qué es el Euro 6 o Euro VI?</summary>
+  <div class="faq-answer">
+    <p>Es una norma ambiental de origen europeo que establece límites muy bajos para las emisiones contaminantes de los vehículos con motor diésel. En Colombia aplica desde el 1 de enero de 2023 para todos los vehículos diésel nuevos, incluidos automóviles, buses y camiones.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Qué productos se producen en Petroil?</summary>
+  <div class="faq-answer">
+    <p>Petroil produce combustibles y refinados para diferentes aplicaciones:</p>
+    <ul>
+      <li><strong>Petroil 40A Max Diesel:</strong> Diésel de uso general con contenidos de base orgánica renovable.</li>
+      <li><strong>Petroil 60 Nafta Virgen.</strong></li>
+      <li><strong>Petroil 5010:</strong> Diésel de uso general.</li>
+      <li><strong>Petroil 90:</strong> Gasolina Premium.</li>
+      <li><strong>Petroil 100:</strong> Mejorador de IFOS.</li>
+      <li><strong>Petroil 250:</strong> Fuel Oil #4.</li>
+      <li><strong>Petroil 300:</strong> VLS Fuel Oil.</li>
+      <li><strong>Petroil 500:</strong> MGO (Gasóleo Marino).</li>
+      <li><strong>Petroil 800 G (Green)</strong> y <strong>Petroil 800 HC:</strong> Combustibles para uso industrial.</li>
+    </ul>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Qué medidas de seguridad implementa la refinería?</summary>
+  <div class="faq-answer">
+    <p>Contamos con un Sistema de Gestión Integral certificado bajo las normas ISO 9001:2015, ISO 14001:2015 e ISO 45001:2018. Nuestra operación se orienta por la Política de Gestión Integral y Sostenibilidad, junto con estrictos protocolos de seguridad, capacitación continua, monitoreo permanente de procesos y planes de respuesta ante emergencias.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿La refinería cumple con las regulaciones ambientales?</summary>
+  <div class="faq-answer">
+    <p>Sí. Operamos bajo la normativa ambiental vigente en Colombia y estamos sujetos a la autorización, seguimiento y control de la Autoridad Nacional de Licencias Ambientales (ANLA), conforme al Decreto 1076 de 2015. Además, realizamos monitoreos permanentes para garantizar el cumplimiento de los estándares ambientales establecidos.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿La refinería tiene programas de responsabilidad social?</summary>
+  <div class="faq-answer">
+    <p>Sí. Desarrollamos iniciativas enfocadas en educación, protección del medio ambiente, desarrollo comunitario y fortalecimiento del tejido económico local.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Cómo puedo presentar una queja, sugerencia o comentario?</summary>
+  <div class="faq-answer">
+    <p>Puedes comunicarte con nosotros a través del formulario de PQRSF disponible en nuestra página web o escribir al correo electrónico <strong>contacto@petroilsa.com</strong>. Nuestro equipo dará respuesta conforme a los tiempos establecidos.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Cómo se informa a la comunidad sobre las actividades de la refinería?</summary>
+  <div class="faq-answer">
+    <p>Publicamos información de interés a través de nuestro sitio web, redes sociales, reuniones con la comunidad y demás canales oficiales de comunicación institucional.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Cómo puedo postularme a una vacante?</summary>
+  <div class="faq-answer">
+    <p>Las vacantes disponibles se publican en la sección <strong>"Trabaja con Nosotros"</strong> de nuestro sitio web, donde podrás consultar las oportunidades vigentes y enviar tu hoja de vida.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿La refinería ofrece programas para estudiantes o practicantes?</summary>
+  <div class="faq-answer">
+    <p>Sí. Periódicamente desarrollamos programas de prácticas, pasantías y formación profesional para estudiantes y jóvenes talentos, de acuerdo con las necesidades de la organización.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Dónde puedo consultar oportunidades de contratación o licitaciones?</summary>
+  <div class="faq-answer">
+    <p>Las oportunidades de contratación y los procesos de licitación vigentes se publican en la sección <strong>"Proveedores"</strong> o <strong>"Licitaciones y Adquisiciones"</strong> de nuestro portal web.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Cuáles son los requisitos para ser proveedor?</summary>
+  <div class="faq-answer">
+    <p>Los proveedores deben cumplir con los requisitos legales aplicables, la documentación corporativa solicitada, los estándares de calidad, seguridad y las políticas corporativas establecidas por Petroil.</p>
+  </div>
+</details>
+
+<details class="faq-item">
+  <summary>¿Cómo puedo registrarme como proveedor?</summary>
+  <div class="faq-answer">
+    <p>Los interesados pueden ingresar a la sección <strong>"Proveedores"</strong> de nuestro sitio web y completar el proceso de registro siguiendo las instrucciones indicadas en la plataforma.</p>
+  </div>
+</details>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- esta seccion no se pensaba hacer pero al final si se hizo jajaja es que era bastante densa pero se logro
+   <section class="clientes reveal" id="clientes">
+    <div class="container">
+      <div class="icon-wrap">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M10 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h2>Clientes</h2>
+      <p>Esta sección está en construcción. Muy pronto encontrarás aquí a las empresas que confían en Petroil y sus historias de éxito.</p>
+      <a href="clientes.html" class="btn-outline" style="margin-top:22px; display:inline-flex;">Ver la página</a>
+    </div>
+  </section> -->
+
+</main>
+
+<footer class="site-footer" id="contacto">
+  <div class="footer-top-line"></div>
+  <div class="container footer-main">
+    <div class="footer-brand">
+      <img src="https://petroilsa.com/wp-content/uploads/2022/09/Petroil-logo-blanco.png" alt="Petroil S.A.">
+      <p>Mejorando el aire que respiramos. Refinería de hidrocarburos comprometida con combustibles más limpios y eficientes.</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/profile.php?id=100090207642425" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13 22v-8h3l1-4h-4V7.5C13 6.4 13.4 6 14.7 6H17V2.1C16.6 2 15.3 2 14 2c-3 0-5 1.8-5 5.2V10H6v4h3v8h4z"/></svg></a>
+        <a href="https://www.linkedin.com/company/petroilsa/" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 8.5H3.56V21h3.38V8.5zM5.25 3a2 2 0 100 4 2 2 0 000-4zM21 21v-7.1c0-3.4-1.8-5-4.3-5-2 0-2.8 1.1-3.3 1.9V8.5h-3.4c0 .8 0 12.5 0 12.5h3.4v-7c0-.4 0-.7.1-1 .3-.7.9-1.5 2-1.5 1.5 0 2.1 1.1 2.1 2.7V21H21z"/></svg></a>
+        <a href="https://www.instagram.com/petroilsa/" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+        <a href="https://www.youtube.com/@petroilsa" aria-label="YouTube"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.6-.5-5.2c-.3-1-1-1.7-2-2C18.9 4.3 12 4.3 12 4.3s-6.9 0-8.5.5c-1 .3-1.7 1-2 2C1 8.4 1 12 1 12s0 3.6.5 5.2c.3 1 1 1.7 2 2 1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5c1-.3 1.7-1 2-2 .5-1.6.5-5.2.5-5.2zM9.7 15.4V8.6L15.8 12l-6.1 3.4z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-links-col">
+      <h4>Enlaces</h4>
+      <ul class="footer-links">
+        <li><a href="#productos">Productos</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#innovacion">Innovación</a></li>
+        <li><a href="clientes.html">Clientes</a></li>
+        <li><a href="#nosotros">¿Quiénes somos?</a></li>
+        <li><a href="#noticias">Noticias</a></li>
+      </ul>
+    </div>
+    <div class="footer-contact">
+      <h4>Contacto</h4>
+      <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b style="color:#fff;">Oficina —</b> Torre Empresarial Pacífic, Cl. 110 #9-25 Of. 1702, Bogotá, Colombia.</span></p>
+      <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s7-6.5 7-11a7 7 0 10-14 0c0 4.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b style="color:#fff;">Refinería —</b> Cra. 57A No. 30–399, Km 1 Sector Mamatoco, Santa Marta, Colombia.</span></p>
+      <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 6l8 7 8-7"/></svg><span>contacto@petroilsa.com</span></p>
+      <a class="wa-btn" href="https://wa.me/573113337046?text=%C2%A1Hola!%20Vengo%20del%20sitio%20web%20de%20Petroil%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.3 17L2 22l5.2-1.4A11 11 0 1020.5 3.5zM12 19.9a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.7-.3-1.5-.8-2.1-1.5-.5-.5-.8-1.1-1-1.5-.1-.2 0-.4.1-.5l.4-.5c.1-.1.2-.3.2-.4.1-.2 0-.3 0-.5-.1-.1-.5-1.3-.7-1.8-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.2s1 2.6 1.1 2.7c.1.2 1.9 3 4.7 4.1.6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-1 .1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+        WhatsApp: +57 311 333 7046
+      </a>
+    </div>
+    <div class="footer-map">
+      <h4>Ubicación</h4>
+      <div class="map-tabs">
+        <button class="map-tab active" data-map="bogota">Oficina Bogotá</button>
+        <button class="map-tab" data-map="santamarta">Refinería Santa Marta</button>
+      </div>
+      <div class="map-frame-wrap">
+        <iframe id="mapFrame" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0443%2C4.6803%2C-74.0243%2C4.7003&layer=mapnik&marker=4.6903%2C-74.0343"
+          title="Mapa de ubicación de Petroil"></iframe>
+      </div>
+      <a class="map-gmaps-link" id="gmapsLink" href="https://maps.google.com/?q=Petroil+SA+Bogota" target="_blank" rel="noopener">
+        Abrir en Google Maps
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <span>© 2026 Petroil S.A. Todos los derechos reservados.</span>
+    <div class="footer-bottom-links">
+      <a href="politica-datos.html">Política de protección de datos</a>
+      <a href="pqrsf.html">PQRSF</a>
+    </div>
+  </div>
+</footer>
+
+<button class="chat-launcher" id="chatLauncher" aria-label="Abrir asistente virtual">
+  <span class="demo-dot">DEMO</span>
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1.1-4.2A8 8 0 1121 12z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <span class="dot"></span>
+    <div>
+      <strong>Asistente Petroil</strong>
+      <span>En línea · respuestas de ejemplo</span>
+    </div>
+    <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
+  </div>
+  <div class="chat-disclaimer">Este chat es una demostración con respuestas predefinidas de ejemplo.</div>
+  <div class="chat-log" id="chatLog">
+    <div class="msg bot">Hola 👋 Soy el asistente virtual de Petroil. Elige una opción para ver cómo funcionaría este módulo.</div>
+  </div>
+  <div class="chat-quick" id="chatQuick">
+    <button class="quick-btn" data-q="productos">¿Qué productos ofrecen?</button>
+    <button class="quick-btn" data-q="ubicacion">¿Dónde están ubicados?</button>
+    <button class="quick-btn" data-q="certificaciones">Certificaciones ISO</button>
+    <button class="quick-btn" data-q="asesor">Hablar con un asesor</button>
+  </div>
+  <div class="chat-wa">
+    <a href="https://wa.me/573113337046?text=%C2%A1Hola!%20Vengo%20del%20chat%20del%20sitio%20web%20de%20Petroil%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11 11 0 003.3 17L2 22l5.2-1.4A11 11 0 1020.5 3.5zM12 19.9a8 8 0 01-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1112 19.9z"/></svg>
+      Continuar por WhatsApp
+    </a>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="petroil-app.js"></script>
+</body>
+</html>
