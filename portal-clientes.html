@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0A2A43">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    PETROIL · PORTAL DE CLIENTES — PROTOTIPO VISUAL
@@ -44,9 +44,9 @@
   --shadow-md:0 10px 28px rgba(8,27,46,.09),0 2px 6px rgba(8,27,46,.05);
   --shadow-lg:0 24px 60px rgba(8,27,46,.18);
   --radius-sm:8px; --radius-md:14px; --radius-lg:22px;
-  --font-display:'Space Grotesk',sans-serif;
-  --font-body:'IBM Plex Sans',sans-serif;
-  --font-mono:'IBM Plex Mono',monospace;
+  --font-display:'Poppins',sans-serif;
+  --font-body:'Poppins',sans-serif;
+  --font-mono:'Poppins',sans-serif;
   --sidebar-w:248px;
   --sidebar-w-collapsed:76px;
 }
@@ -1200,7 +1200,7 @@ function drawBarChart(svgId, labels, values, color){
   [0,0.25,0.5,0.75,1].forEach(t=>{
     const y = padT + chartH*(1-t);
     svg.appendChild(el("line",{x1:padL,x2:W-padR,y1:y,y2:y,stroke:"#E1E7EE","stroke-width":1}));
-    svg.appendChild(el("text",{x:4,y:y+3,"font-size":9,fill:"#9AA7B6","font-family":"IBM Plex Mono"})).textContent = Math.round(max*t/1000)+"k";
+    svg.appendChild(el("text",{x:4,y:y+3,"font-size":9,fill:"#9AA7B6","font-family":"Poppins"})).textContent = Math.round(max*t/1000)+"k";
   });
 
   values.forEach((v,i)=>{
@@ -1213,7 +1213,7 @@ function drawBarChart(svgId, labels, values, color){
       rect.setAttribute("y", padT+chartH-targetH);
       rect.setAttribute("height", targetH);
     });
-    svg.appendChild(el("text",{x:x+barW/2,y:H-8,"text-anchor":"middle","font-size":9.5,fill:"#6B7686","font-family":"IBM Plex Sans"})).textContent = labels[i];
+    svg.appendChild(el("text",{x:x+barW/2,y:H-8,"text-anchor":"middle","font-size":9.5,fill:"#6B7686","font-family":"Poppins"})).textContent = labels[i];
   });
 }
 
@@ -1245,8 +1245,8 @@ function drawDonut(svgId, legendId, data){
     });
     offset += len;
   });
-  svg.appendChild(el("text",{x:cx,y:cy-4,"text-anchor":"middle","font-size":18,"font-weight":700,fill:"#0F1720","font-family":"Space Grotesk"})).textContent = total+"%";
-  svg.appendChild(el("text",{x:cx,y:cy+13,"text-anchor":"middle","font-size":8.5,fill:"#9AA7B6","font-family":"IBM Plex Mono"})).textContent = "MEZCLA";
+  svg.appendChild(el("text",{x:cx,y:cy-4,"text-anchor":"middle","font-size":18,"font-weight":700,fill:"#0F1720","font-family":"Poppins"})).textContent = total+"%";
+  svg.appendChild(el("text",{x:cx,y:cy+13,"text-anchor":"middle","font-size":8.5,fill:"#9AA7B6","font-family":"Poppins"})).textContent = "MEZCLA";
 
   document.getElementById(legendId).innerHTML = data.map(d=>
     '<span class="legend-dot"><span style="background:'+d.color+';"></span>'+d.label+' · '+d.value+'%</span>'
@@ -1269,7 +1269,7 @@ function drawLineChart(svgId, legendId, labels, series){
   });
   labels.forEach((lb,i)=>{
     if(i%2!==0) return;
-    svg.appendChild(el("text",{x:padL+stepX*i,y:H-6,"text-anchor":"middle","font-size":9,fill:"#9AA7B6","font-family":"IBM Plex Sans"})).textContent = lb;
+    svg.appendChild(el("text",{x:padL+stepX*i,y:H-6,"text-anchor":"middle","font-size":9,fill:"#9AA7B6","font-family":"Poppins"})).textContent = lb;
   });
 
   series.forEach((s,si)=>{
@@ -1327,7 +1327,7 @@ function drawAreaChart(svgId, labels, values, color){
 
   labels.forEach((lb,i)=>{
     if(i%3!==0 && i!==labels.length-1) return;
-    svg.appendChild(el("text",{x:pts[i][0],y:H-6,"text-anchor":"middle","font-size":8.5,fill:"#9AA7B6","font-family":"IBM Plex Sans"})).textContent=lb;
+    svg.appendChild(el("text",{x:pts[i][0],y:H-6,"text-anchor":"middle","font-size":8.5,fill:"#9AA7B6","font-family":"Poppins"})).textContent=lb;
   });
 }
 
@@ -1368,7 +1368,7 @@ function drawGauge(svgId, pct, colorMain){
   [0,25,50,75,100].forEach(t=>{
     const deg = 180+180*(t/100);
     const [ox,oy] = arcPoint(deg);
-    svg.appendChild(el("text",{x:ox, y:oy + (deg===270? -66: (deg<270? 14: 14)), "text-anchor":"middle","font-size":8.5, fill:"#9AA7B6","font-family":"IBM Plex Mono"})).textContent=t+"%";
+    svg.appendChild(el("text",{x:ox, y:oy + (deg===270? -66: (deg<270? 14: 14)), "text-anchor":"middle","font-size":8.5, fill:"#9AA7B6","font-family":"Poppins"})).textContent=t+"%";
   });
 }
 
