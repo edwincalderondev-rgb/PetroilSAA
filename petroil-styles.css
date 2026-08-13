@@ -331,7 +331,7 @@ nav.nav-links a.current::after{width:100%;}
 
 /* NEWS */
 .news{padding:90px 0; background:var(--mist); border-top:1px solid var(--line);}
-.news-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.news-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:26px;}
 .news-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column;}
 .news-thumb{
   position:relative; height:160px; background:linear-gradient(135deg,var(--navy),var(--teal)); display:flex; align-items:flex-end;
