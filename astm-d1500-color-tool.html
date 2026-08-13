@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorímetro ASTM D1500</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#131110;
+    --panel:#1c1815;
+    --panel-2:#221d18;
+    --line:#37312a;
+    --line-soft:#2a2521;
+    --text:#efe8dc;
+    --text-muted:#9c9184;
+    --text-faint:#6f6659;
+    --amber:#d98c3d;
+    --amber-dim:#8a5b28;
+    --crimson:#c0503f;
+    --green:#5f9c6d;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 12% -10%, rgba(217,140,61,0.10), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',system-ui,sans-serif;
+    min-height:100vh;
+    line-height:1.5;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px;}
+
+  /* ---------- header ---------- */
+  header{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    gap:20px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+    padding-bottom:20px;margin-bottom:28px;
+  }
+  .brand-eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--amber);margin-bottom:8px;
+  }
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:clamp(26px,4vw,36px);
+    margin:0;letter-spacing:-.01em;
+  }
+  header p{margin:6px 0 0;color:var(--text-muted);font-size:14.5px;max-width:46ch;}
+  .std-tag{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted);
+    border:1px solid var(--line);border-radius:999px;padding:7px 14px;
+    display:flex;align-items:center;gap:8px;white-space:nowrap;
+  }
+  .std-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--amber);}
+
+  /* ---------- layout ---------- */
+  .grid{display:grid;grid-template-columns:390px 1fr;gap:22px;align-items:start;}
+  @media(max-width:900px){.grid{grid-template-columns:1fr;}}
+
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px;
+  }
+  .panel + .panel{margin-top:18px;}
+  .panel h2{
+    font-family:'Space Grotesk',sans-serif;font-size:15px;font-weight:600;
+    margin:0 0 14px;display:flex;align-items:center;gap:9px;
+  }
+  .panel h2 .num{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--amber);
+    border:1px solid var(--amber-dim);border-radius:5px;width:20px;height:20px;
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+
+  /* ---------- tabs ---------- */
+  .tabs{display:flex;gap:6px;background:var(--panel-2);border:1px solid var(--line);border-radius:8px;padding:4px;margin-bottom:14px;}
+  .tab-btn{
+    flex:1;background:transparent;border:none;color:var(--text-muted);
+    font-family:'Inter',sans-serif;font-size:13px;font-weight:500;
+    padding:9px 8px;border-radius:6px;cursor:pointer;transition:all .15s;
+  }
+  .tab-btn.active{background:var(--amber);color:#1a1310;font-weight:600;}
+  .tab-panel{display:none;}
+  .tab-panel.active{display:block;}
+
+  button{cursor:pointer;font-family:'Inter',sans-serif;}
+  .btn{
+    width:100%;padding:11px 14px;border-radius:8px;border:1px solid var(--line);
+    background:var(--panel-2);color:var(--text);font-size:13.5px;font-weight:500;
+    transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .btn:hover{border-color:var(--amber-dim);}
+  .btn-primary{background:var(--amber);border-color:var(--amber);color:#1a1310;font-weight:600;}
+  .btn-primary:hover{background:#e59b52;}
+  .btn:disabled{opacity:.4;cursor:not-allowed;}
+  .btn-ghost{background:transparent;}
+
+  input[type=file]{display:none;}
+  .drop-label{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+    border:1.5px dashed var(--line);border-radius:8px;padding:26px 14px;
+    color:var(--text-muted);font-size:13px;text-align:center;transition:.15s;
+  }
+  .drop-label:hover{border-color:var(--amber-dim);color:var(--text);}
+  .drop-label svg{opacity:.6;}
+
+  video, #cameraStage{width:100%;border-radius:8px;background:#000;display:block;}
+  .cam-controls{display:flex;gap:8px;margin-top:10px;}
+
+  /* expected value section */
+  .field-label{font-size:12.5px;color:var(--text-muted);margin:0 0 8px;font-weight:500;}
+  .radio-row{display:flex;flex-direction:column;gap:8px;margin-bottom:12px;}
+  .radio-opt{
+    display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);
+    background:var(--panel-2);border:1px solid var(--line);border-radius:7px;padding:9px 11px;
+    cursor:pointer;
+  }
+  .radio-opt input{accent-color:var(--amber);}
+  .expected-inputs{display:none;gap:8px;margin-top:2px;}
+  .expected-inputs.active{display:flex;}
+  .expected-inputs input[type=number]{
+    width:100%;background:var(--panel-2);border:1px solid var(--line);border-radius:7px;
+    color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13px;padding:9px 10px;
+  }
+  .expected-inputs input:focus{outline:none;border-color:var(--amber);}
+  .expected-inputs span.sep{align-self:center;color:var(--text-faint);font-size:12px;}
+
+  /* ---------- results (right) ---------- */
+  .empty-state{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    min-height:420px;color:var(--text-faint);text-align:center;gap:10px;padding:40px 20px;
+  }
+  .empty-state svg{opacity:.35;}
+  .empty-state p{max-width:34ch;font-size:13.5px;margin:0;}
+
+  .result-body{display:none;}
+  .result-body.active{display:block;}
+
+  .result-top{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px;}
+  @media(max-width:640px){.result-top{grid-template-columns:1fr;}}
+
+  .crop-card, .swatch-card{
+    background:var(--panel-2);border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  }
+  .crop-card canvas{width:100%;display:block;aspect-ratio:1/1;object-fit:cover;background:#000;}
+  .card-label{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--text-faint);padding:9px 12px 0;
+  }
+  .swatch-fill{aspect-ratio:1/1;margin:10px 12px 0;border-radius:6px;border:1px solid rgba(255,255,255,.08);}
+  .code-row{padding:10px 12px 12px;display:flex;justify-content:space-between;align-items:center;}
+  .code-row .hex{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;letter-spacing:.02em;}
+  .code-row .rgb{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-muted);}
+
+  /* gauge / signature element */
+  .gauge-section{margin-bottom:22px;}
+  .gauge-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;flex-wrap:wrap;gap:6px;}
+  .gauge-header h3{font-family:'Space Grotesk',sans-serif;font-size:14px;margin:0;font-weight:600;}
+  .gauge-readout{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--amber);}
+  .gauge-strip-wrap{position:relative;padding-top:26px;}
+  .gauge-strip{
+    height:34px;border-radius:6px;position:relative;
+    border:1px solid rgba(0,0,0,.35);
+    box-shadow:inset 0 1px 3px rgba(0,0,0,.4);
+  }
+  .gauge-ticks{display:flex;justify-content:space-between;margin-top:6px;}
+  .gauge-ticks span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);}
+  .gauge-marker{
+    position:absolute;top:-24px;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;
+    transition:left .4s cubic-bezier(.2,.8,.2,1);
+  }
+  .gauge-marker .pin-label{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--text);
+    background:var(--panel);border:1px solid var(--amber);border-radius:5px;padding:2px 6px;
+    margin-bottom:2px;white-space:nowrap;
+  }
+  .gauge-marker .pin-tri{
+    width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;
+    border-top:8px solid var(--amber);
+  }
+  .gauge-caption{margin-top:10px;font-size:12.5px;color:var(--text-muted);}
+  .gauge-caption b{color:var(--text);font-weight:600;}
+
+  .confidence-pill{
+    display:inline-flex;align-items:center;gap:6px;font-size:11.5px;
+    padding:4px 10px;border-radius:999px;margin-top:10px;font-weight:500;
+  }
+  .pill-high{background:rgba(95,156,109,.15);color:var(--green);border:1px solid rgba(95,156,109,.35);}
+  .pill-mid{background:rgba(217,140,61,.15);color:var(--amber);border:1px solid rgba(217,140,61,.35);}
+  .pill-low{background:rgba(192,80,63,.15);color:var(--crimson);border:1px solid rgba(192,80,63,.35);}
+
+  /* verdict */
+  .verdict-card{
+    border-radius:9px;padding:16px 18px;margin-bottom:22px;
+    display:flex;align-items:center;gap:14px;border:1px solid var(--line);
+  }
+  .verdict-card.conforme{background:rgba(95,156,109,.09);border-color:rgba(95,156,109,.4);}
+  .verdict-card.no-conforme{background:rgba(192,80,63,.09);border-color:rgba(192,80,63,.4);}
+  .verdict-icon{
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    flex:none;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;
+  }
+  .conforme .verdict-icon{background:var(--green);color:#0f1a12;}
+  .no-conforme .verdict-icon{background:var(--crimson);color:#1a0f0d;}
+  .verdict-title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;}
+  .verdict-sub{font-size:12.5px;color:var(--text-muted);margin-top:2px;}
+
+  /* source badge */
+  .source-card{
+    display:flex;gap:14px;align-items:flex-start;border-top:1px solid var(--line);padding-top:18px;
+  }
+  .source-icon{
+    width:34px;height:34px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);
+  }
+  .source-card.camera .source-icon{border-color:rgba(95,156,109,.5);color:var(--green);}
+  .source-card.file .source-icon{border-color:rgba(217,140,61,.5);color:var(--amber);}
+  .source-title{font-size:13.5px;font-weight:600;}
+  .source-sub{font-size:12px;color:var(--text-muted);margin-top:3px;max-width:52ch;}
+
+  .reset-row{margin-top:20px;}
+
+  /* magnifier */
+  .canvas-wrap{position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--line);cursor:crosshair;}
+  .canvas-wrap canvas{width:100%;display:block;}
+  .loupe{
+    position:absolute;width:76px;height:76px;border-radius:50%;
+    border:2px solid var(--amber);pointer-events:none;display:none;
+    box-shadow:0 4px 14px rgba(0,0,0,.5);overflow:hidden;
+  }
+  .loupe canvas{width:100%;height:100%;image-rendering:pixelated;}
+  .sample-hint{font-size:11.5px;color:var(--text-faint);margin-top:8px;text-align:center;}
+
+  footer{
+    margin-top:34px;border-top:1px solid var(--line);padding-top:16px;
+    font-size:11.5px;color:var(--text-faint);line-height:1.6;
+  }
+  .status-msg{font-size:12.5px;color:var(--amber);margin-top:10px;min-height:16px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="brand-eyebrow">Instrumento de campo · control de calidad</div>
+      <h1>Colorímetro ASTM D1500</h1>
+      <p>Estima el color ASTM de un líquido a partir de una fotografía y lo ubica en la escala normalizada de 0.5 a 8.0.</p>
+    </div>
+    <div class="std-tag"><span class="dot"></span> ASTM D1500 · rango 0.5–8.0</div>
+  </header>
+
+  <div class="grid">
+
+    <!-- ===================== LEFT: INPUT ===================== -->
+    <div>
+      <div class="panel">
+        <h2><span class="num">1</span>Fuente de la imagen</h2>
+
+        <div class="tabs">
+          <button class="tab-btn active" data-tab="cam">Cámara en vivo</button>
+          <button class="tab-btn" data-tab="file">Cargar foto</button>
+        </div>
+
+        <div class="tab-panel active" id="tab-cam">
+          <div id="cameraStage">
+            <video id="video" autoplay playsinline muted style="display:none;"></video>
+          </div>
+          <div class="cam-controls">
+            <button class="btn" id="startCamBtn">Activar cámara</button>
+            <button class="btn btn-primary" id="shotBtn" style="display:none;">Capturar</button>
+          </div>
+          <p class="sample-hint">La foto se toma directamente del sensor del dispositivo: no se admiten imágenes de galería en esta pestaña.</p>
+        </div>
+
+        <div class="tab-panel" id="tab-file">
+          <label class="drop-label" for="fileInput">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg>
+            <span>Toca para elegir una foto guardada</span>
+          </label>
+          <input type="file" id="fileInput" accept="image/*">
+          <p class="sample-hint">Origen no verificado: la imagen pudo pasar por edición, filtros o recorte antes de subirla.</p>
+        </div>
+
+        <p class="status-msg" id="statusMsg"></p>
+      </div>
+
+      <div class="panel">
+        <h2><span class="num">2</span>Resultado esperado <span style="color:var(--text-faint);font-weight:400;font-size:11.5px;">(opcional)</span></h2>
+        <p class="field-label">Si conoces la especificación del producto, indícala para verificar conformidad.</p>
+        <div class="radio-row">
+          <label class="radio-opt"><input type="radio" name="expMode" value="none" checked> Sin valor esperado</label>
+          <label class="radio-opt"><input type="radio" name="expMode" value="single"> Valor único ASTM</label>
+          <label class="radio-opt"><input type="radio" name="expMode" value="range"> Rango permitido</label>
+        </div>
+        <div class="expected-inputs" id="inputSingle">
+          <input type="number" id="expSingle" min="0" max="8.5" step="0.1" placeholder="p. ej. 3.5">
+        </div>
+        <div class="expected-inputs" id="inputRange">
+          <input type="number" id="expMin" min="0" max="8.5" step="0.1" placeholder="mín, p. ej. 2.5">
+          <span class="sep">—</span>
+          <input type="number" id="expMax" min="0" max="8.5" step="0.1" placeholder="máx, p. ej. 3.5">
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== RIGHT: RESULTS ===================== -->
+    <div class="panel" style="min-height:480px;">
+      <h2><span class="num">3</span>Análisis de color</h2>
+
+      <div class="empty-state" id="emptyState">
+        <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 000 18 4.5 4.5 0 010-9 2.25 2.25 0 000-4.5A9 9 0 0012 3z"/><circle cx="8.5" cy="10.5" r=".8" fill="currentColor"/><circle cx="15" cy="9" r=".8" fill="currentColor"/><circle cx="14" cy="14.5" r=".8" fill="currentColor"/></svg>
+        <p>Activa la cámara o carga una foto del líquido —de borde a borde, sin reflejos ni sombras fuertes— para ver el color extraído, su ubicación en la escala ASTM D1500 y el veredicto de conformidad.</p>
+      </div>
+
+      <div class="result-body" id="resultBody">
+
+        <div class="canvas-wrap" id="canvasWrap" style="margin-bottom:14px;">
+          <canvas id="mainCanvas"></canvas>
+          <div class="loupe" id="loupe"><canvas id="loupeCanvas" width="9" height="9"></canvas></div>
+        </div>
+        <p class="sample-hint">Se tomó el promedio del centro de la imagen automáticamente. Toca cualquier punto de la foto para re-muestrear ese punto con el gotero.</p>
+
+        <div class="result-top" style="margin-top:18px;">
+          <div class="crop-card">
+            <div class="card-label">Recorte muestreado</div>
+            <canvas id="cropCanvas"></canvas>
+          </div>
+          <div class="swatch-card">
+            <div class="card-label">Color extraído</div>
+            <div class="swatch-fill" id="swatchFill"></div>
+            <div class="code-row">
+              <span class="hex" id="hexCode">#000000</span>
+              <span class="rgb" id="rgbCode">rgb(0,0,0)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gauge-section">
+          <div class="gauge-header">
+            <h3>Ubicación en la escala ASTM D1500</h3>
+            <span class="gauge-readout" id="gaugeReadout">— · —</span>
+          </div>
+          <div class="gauge-strip-wrap">
+            <div class="gauge-marker" id="gaugeMarker" style="left:0%;">
+              <div class="pin-label" id="pinLabel">0.0</div>
+              <div class="pin-tri"></div>
+            </div>
+            <div class="gauge-strip" id="gaugeStrip"></div>
+          </div>
+          <div class="gauge-ticks" id="gaugeTicks"></div>
+          <p class="gauge-caption">Escalón normalizado más cercano: <b id="stepLabel">—</b>. Valor interpolado continuo: <b id="contLabel">—</b>.</p>
+          <span class="confidence-pill" id="matchPill">—</span>
+        </div>
+
+        <div id="verdictWrap"></div>
+
+        <div class="source-card" id="sourceCard">
+          <div class="source-icon" id="sourceIcon"></div>
+          <div>
+            <div class="source-title" id="sourceTitle">—</div>
+            <div class="source-sub" id="sourceSub">—</div>
+          </div>
+        </div>
+
+        <div class="reset-row">
+          <button class="btn btn-ghost" id="resetBtn">↺ Reiniciar análisis</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <b>Nota de exactitud:</b> ASTM D1500 se calibra oficialmente comparando el líquido contra vidrios de referencia certificados, bajo iluminación normada (fuente de 2750 K). Esta herramienta aproxima esos 16 escalones a partir de descripciones publicadas del color de la escala y compara por diferencia de color perceptual (CIE Lab); no sustituye un comparador visual certificado ni un colorímetro de laboratorio para uso regulatorio. La iluminación, el balance de blancos de la cámara y el envase de la muestra afectan el resultado.
+  </footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ============ ASTM D1500 reference stops (approximate) ============ */
+  const ASTM_STOPS_HEX = [
+    [0.5,'#f6e7b0'],[1.0,'#f3db8e'],[1.5,'#f0cd72'],[2.0,'#ecbd58'],
+    [2.5,'#e6aa44'],[3.0,'#de9836'],[3.5,'#d4842b'],[4.0,'#c87023'],
+    [4.5,'#bb5d1c'],[5.0,'#ac4b17'],[5.5,'#9c3b13'],[6.0,'#8a2d10'],
+    [6.5,'#78210e'],[7.0,'#63170b'],[7.5,'#4e1009'],[8.0,'#390b07']
+  ];
+
+  function hexToRgb(hex){
+    const n = parseInt(hex.slice(1),16);
+    return [(n>>16)&255,(n>>8)&255,n&255];
+  }
+  function rgbToHex(r,g,b){
+    return '#'+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,'0')).join('');
+  }
+
+  /* ---- sRGB -> CIE Lab (D65) ---- */
+  function srgbToLinear(c){c/=255;return c<=0.04045? c/12.92 : Math.pow((c+0.055)/1.055,2.4);}
+  function rgbToXyz(r,g,b){
+    const rl=srgbToLinear(r), gl=srgbToLinear(g), bl=srgbToLinear(b);
+    return [
+      rl*0.4124564+gl*0.3575761+bl*0.1804375,
+      rl*0.2126729+gl*0.7151522+bl*0.0721750,
+      rl*0.0193339+gl*0.1191920+bl*0.9503041
+    ];
+  }
+  function fLab(t){return t>0.008856 ? Math.cbrt(t) : (7.787*t + 16/116);}
+  function xyzToLab(x,y,z){
+    const Xn=0.95047, Yn=1.0, Zn=1.08883;
+    const fx=fLab(x/Xn), fy=fLab(y/Yn), fz=fLab(z/Zn);
+    return [116*fy-16, 500*(fx-fy), 200*(fy-fz)];
+  }
+  function rgbToLab(r,g,b){
+    const [x,y,z]=rgbToXyz(r,g,b);
+    return xyzToLab(x,y,z);
+  }
+  function sub(a,b){return [a[0]-b[0],a[1]-b[1],a[2]-b[2]];}
+  function add(a,b){return [a[0]+b[0],a[1]+b[1],a[2]+b[2]];}
+  function scaleV(a,s){return [a[0]*s,a[1]*s,a[2]*s];}
+  function dot(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+  function distV(a,b){return Math.sqrt(dot(sub(a,b),sub(a,b)));}
+
+  const STOPS = ASTM_STOPS_HEX.map(([value,hex])=>{
+    const rgb = hexToRgb(hex);
+    return {value, hex, rgb, lab: rgbToLab(...rgb)};
+  });
+
+  function estimateAstm(rgb){
+    const lab = rgbToLab(...rgb);
+    let best = {dist:Infinity, value:STOPS[0].value};
+    for(let i=0;i<STOPS.length-1;i++){
+      const a = STOPS[i].lab, b = STOPS[i+1].lab;
+      const ab = sub(b,a), ap = sub(lab,a);
+      const abLenSq = dot(ab,ab) || 1e-9;
+      let t = dot(ap,ab)/abLenSq;
+      t = Math.max(0,Math.min(1,t));
+      const proj = add(a, scaleV(ab,t));
+      const d = distV(lab,proj);
+      if(d < best.dist){
+        best = {dist:d, value: STOPS[i].value + t*(STOPS[i+1].value-STOPS[i].value)};
+      }
+    }
+    let nearestStep = STOPS[0].value;
+    let nearestDiff = Infinity;
+    STOPS.forEach(s=>{
+      const diff = Math.abs(s.value-best.value);
+      if(diff<nearestDiff){nearestDiff=diff;nearestStep=s.value;}
+    });
+    return {continuous: best.value, nearestStep, deltaE: best.dist};
+  }
+
+  /* ============ build gauge gradient + ticks once ============ */
+  const gaugeStrip = document.getElementById('gaugeStrip');
+  const gradientStr = STOPS.map(s=>{
+    const pct = ((s.value-0.5)/(8.0-0.5))*100;
+    return `${s.hex} ${pct.toFixed(1)}%`;
+  }).join(', ');
+  gaugeStrip.style.background = `linear-gradient(90deg, ${gradientStr})`;
+
+  const gaugeTicks = document.getElementById('gaugeTicks');
+  [0.5,1,2,3,4,5,6,7,8].forEach(v=>{
+    const s = document.createElement('span');
+    s.textContent = v.toFixed(1);
+    gaugeTicks.appendChild(s);
+  });
+
+  /* ============ tabs ============ */
+  const tabBtns = document.querySelectorAll('.tab-btn');
+  tabBtns.forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      tabBtns.forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+      if(btn.dataset.tab !== 'cam') stopCamera();
+    });
+  });
+
+  /* ============ expected value mode ============ */
+  document.querySelectorAll('input[name=expMode]').forEach(r=>{
+    r.addEventListener('change', ()=>{
+      document.getElementById('inputSingle').classList.toggle('active', r.value==='single' && r.checked);
+      document.getElementById('inputRange').classList.toggle('active', r.value==='range' && r.checked);
+      if(currentRgb) renderVerdict();
+    });
+  });
+  ['expSingle','expMin','expMax'].forEach(id=>{
+    document.getElementById(id).addEventListener('input', ()=>{ if(currentRgb) renderVerdict(); });
+  });
+
+  /* ============ camera ============ */
+  const video = document.getElementById('video');
+  const startCamBtn = document.getElementById('startCamBtn');
+  const shotBtn = document.getElementById('shotBtn');
+  const statusMsg = document.getElementById('statusMsg');
+  let stream = null;
+
+  startCamBtn.addEventListener('click', async ()=>{
+    try{
+      statusMsg.textContent = 'Solicitando acceso a la cámara…';
+      stream = await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment', width:{ideal:1280}, height:{ideal:1280}}, audio:false});
+      video.srcObject = stream;
+      video.style.display='block';
+      startCamBtn.style.display='none';
+      shotBtn.style.display='block';
+      statusMsg.textContent = '';
+    }catch(err){
+      statusMsg.textContent = 'No se pudo acceder a la cámara. Revisa los permisos del navegador.';
+    }
+  });
+
+  shotBtn.addEventListener('click', ()=>{
+    const w = video.videoWidth, h = video.videoHeight;
+    const off = document.createElement('canvas');
+    off.width=w; off.height=h;
+    off.getContext('2d').drawImage(video,0,0,w,h);
+    loadImageFromCanvas(off, 'camera');
+    stopCamera();
+    startCamBtn.style.display='block';
+    shotBtn.style.display='none';
+    video.style.display='none';
+  });
+
+  function stopCamera(){
+    if(stream){ stream.getTracks().forEach(t=>t.stop()); stream=null; }
+  }
+
+  /* ============ file upload ============ */
+  const fileInput = document.getElementById('fileInput');
+  fileInput.addEventListener('change', (e)=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    const img = new Image();
+    img.onload = ()=>{
+      const off = document.createElement('canvas');
+      const MAX = 1000;
+      let w=img.width, h=img.height;
+      if(w>MAX || h>MAX){ const r=Math.min(MAX/w,MAX/h); w*=r; h*=r; }
+      off.width=w; off.height=h;
+      off.getContext('2d').drawImage(img,0,0,w,h);
+      loadImageFromCanvas(off, 'file');
+    };
+    img.src = URL.createObjectURL(file);
+  });
+
+  /* ============ main canvas / sampling ============ */
+  const mainCanvas = document.getElementById('mainCanvas');
+  const mctx = mainCanvas.getContext('2d', {willReadFrequently:true});
+  const cropCanvas = document.getElementById('cropCanvas');
+  const cctx = cropCanvas.getContext('2d');
+  const loupe = document.getElementById('loupe');
+  const loupeCanvas = document.getElementById('loupeCanvas');
+  const lctx = loupeCanvas.getContext('2d');
+  const canvasWrap = document.getElementById('canvasWrap');
+
+  let sourceType = null; // 'camera' | 'file'
+  let currentRgb = null;
+
+  function loadImageFromCanvas(offCanvas, source){
+    sourceType = source;
+    mainCanvas.width = offCanvas.width;
+    mainCanvas.height = offCanvas.height;
+    mctx.drawImage(offCanvas,0,0);
+
+    document.getElementById('emptyState').style.display='none';
+    document.getElementById('resultBody').classList.add('active');
+
+    // default: average a center region (photo is edge-to-edge liquid)
+    const cx = Math.floor(mainCanvas.width/2);
+    const cy = Math.floor(mainCanvas.height/2);
+    const regionSize = Math.floor(Math.min(mainCanvas.width, mainCanvas.height)*0.35);
+    sampleAt(cx, cy, regionSize);
+  }
+
+  function sampleAt(cx, cy, size){
+    size = size || Math.floor(Math.min(mainCanvas.width, mainCanvas.height)*0.10);
+    const half = Math.floor(size/2);
+    const x = Math.max(0, Math.min(mainCanvas.width-1, cx-half));
+    const y = Math.max(0, Math.min(mainCanvas.height-1, cy-half));
+    const w = Math.min(size, mainCanvas.width-x);
+    const h = Math.min(size, mainCanvas.height-y);
+    const data = mctx.getImageData(x,y,w,h).data;
+    let r=0,g=0,b=0,n=0;
+    for(let i=0;i<data.length;i+=4){ r+=data[i]; g+=data[i+1]; b+=data[i+2]; n++; }
+    r=r/n; g=g/n; b=b/n;
+    currentRgb = [r,g,b];
+
+    // draw crop preview
+    cropCanvas.width = 200; cropCanvas.height = 200;
+    cctx.imageSmoothingEnabled = true;
+    cctx.drawImage(mainCanvas, x, y, w, h, 0, 0, 200, 200);
+
+    renderResults();
+  }
+
+  // click-to-resample (eyedropper)
+  mainCanvas.addEventListener('click', (e)=>{
+    const rect = mainCanvas.getBoundingClientRect();
+    const scaleX = mainCanvas.width / rect.width;
+    const scaleY = mainCanvas.height / rect.height;
+    const x = Math.floor((e.clientX-rect.left)*scaleX);
+    const y = Math.floor((e.clientY-rect.top)*scaleY);
+    const sampleSize = Math.max(14, Math.floor(Math.min(mainCanvas.width, mainCanvas.height)*0.06));
+    sampleAt(x,y,sampleSize);
+  });
+
+  // magnifier loupe on hover
+  mainCanvas.addEventListener('mousemove', (e)=>{
+    const rect = mainCanvas.getBoundingClientRect();
+    const scaleX = mainCanvas.width / rect.width;
+    const scaleY = mainCanvas.height / rect.height;
+    const x = Math.floor((e.clientX-rect.left)*scaleX);
+    const y = Math.floor((e.clientY-rect.top)*scaleY);
+    const half=4;
+    const sx = Math.max(0, Math.min(mainCanvas.width-9, x-half));
+    const sy = Math.max(0, Math.min(mainCanvas.height-9, y-half));
+    lctx.imageSmoothingEnabled = false;
+    lctx.clearRect(0,0,9,9);
+    lctx.drawImage(mainCanvas, sx, sy, 9, 9, 0, 0, 9, 9);
+
+    loupe.style.display='block';
+    loupe.style.left = (e.clientX - canvasWrap.getBoundingClientRect().left - 38) + 'px';
+    loupe.style.top = (e.clientY - canvasWrap.getBoundingClientRect().top - 90) + 'px';
+  });
+  mainCanvas.addEventListener('mouseleave', ()=>{ loupe.style.display='none'; });
+
+  /* ============ render results ============ */
+  function renderResults(){
+    const [r,g,b] = currentRgb;
+    const hex = rgbToHex(r,g,b);
+    document.getElementById('swatchFill').style.background = hex;
+    document.getElementById('hexCode').textContent = hex.toUpperCase();
+    document.getElementById('rgbCode').textContent = `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
+
+    const est = estimateAstm(currentRgb);
+    const pct = Math.max(0,Math.min(100, ((est.continuous-0.5)/(8.0-0.5))*100));
+    document.getElementById('gaugeMarker').style.left = pct+'%';
+    document.getElementById('pinLabel').textContent = est.continuous.toFixed(1);
+    document.getElementById('gaugeReadout').textContent = `ASTM ${est.continuous.toFixed(1)} · escalón ${est.nearestStep.toFixed(1)}`;
+    document.getElementById('stepLabel').textContent = `ASTM ${est.nearestStep.toFixed(1)}`;
+    document.getElementById('contLabel').textContent = est.continuous.toFixed(2);
+
+    const pill = document.getElementById('matchPill');
+    let matchLevel;
+    if(est.deltaE < 6){
+      pill.className='confidence-pill pill-high';
+      pill.textContent='Ajuste alto a la escala (ΔE ~'+est.deltaE.toFixed(1)+')';
+      matchLevel='alto';
+    }else if(est.deltaE < 15){
+      pill.className='confidence-pill pill-mid';
+      pill.textContent='Ajuste moderado a la escala (ΔE ~'+est.deltaE.toFixed(1)+')';
+      matchLevel='moderado';
+    }else{
+      pill.className='confidence-pill pill-low';
+      pill.textContent='Ajuste bajo — color fuera del rango típico de la escala (ΔE ~'+est.deltaE.toFixed(1)+')';
+      matchLevel='bajo';
+    }
+
+    currentEstimate = est;
+    currentMatchLevel = matchLevel;
+    renderVerdict();
+    renderSource();
+  }
+
+  let currentEstimate = null;
+  let currentMatchLevel = null;
+
+  function renderVerdict(){
+    const wrap = document.getElementById('verdictWrap');
+    const mode = document.querySelector('input[name=expMode]:checked').value;
+    if(mode==='none' || !currentEstimate){ wrap.innerHTML=''; return; }
+
+    let expected=null, min=null, max=null, ok=false, label='';
+    if(mode==='single'){
+      const v = parseFloat(document.getElementById('expSingle').value);
+      if(isNaN(v)){ wrap.innerHTML=''; return; }
+      expected=v;
+      const tolerance=0.5;
+      ok = Math.abs(currentEstimate.continuous - v) <= tolerance;
+      label = `Esperado ASTM ${v.toFixed(1)} (tolerancia ±${tolerance}) · obtenido ${currentEstimate.continuous.toFixed(1)}`;
+    }else if(mode==='range'){
+      min = parseFloat(document.getElementById('expMin').value);
+      max = parseFloat(document.getElementById('expMax').value);
+      if(isNaN(min) || isNaN(max)){ wrap.innerHTML=''; return; }
+      ok = currentEstimate.continuous >= Math.min(min,max) && currentEstimate.continuous <= Math.max(min,max);
+      label = `Rango permitido ${Math.min(min,max).toFixed(1)}–${Math.max(min,max).toFixed(1)} · obtenido ${currentEstimate.continuous.toFixed(1)}`;
+    }
+
+    wrap.innerHTML = `
+      <div class="verdict-card ${ok?'conforme':'no-conforme'}">
+        <div class="verdict-icon">${ok?'✓':'✕'}</div>
+        <div>
+          <div class="verdict-title">${ok?'CONFORME':'NO CONFORME'}</div>
+          <div class="verdict-sub">${label}</div>
+        </div>
+      </div>`;
+  }
+
+  function renderSource(){
+    const card = document.getElementById('sourceCard');
+    const icon = document.getElementById('sourceIcon');
+    const title = document.getElementById('sourceTitle');
+    const sub = document.getElementById('sourceSub');
+
+    if(sourceType==='camera'){
+      card.className='source-card camera';
+      icon.innerHTML='✓';
+      title.textContent='Captura verificada — cámara nativa del dispositivo';
+      sub.textContent = overallConfidenceText(true);
+    }else{
+      card.className='source-card file';
+      icon.innerHTML='!';
+      title.textContent='Imagen cargada — origen no verificado';
+      sub.textContent = overallConfidenceText(false) + ' Pudo haber pasado por edición, recorte o filtros antes de subirse.';
+    }
+  }
+
+  function overallConfidenceText(fromCamera){
+    let level;
+    if(fromCamera && currentMatchLevel==='alto') level='Alta';
+    else if(!fromCamera && currentMatchLevel==='alto') level='Media';
+    else if(currentMatchLevel==='moderado') level = fromCamera?'Media':'Media-baja';
+    else level='Baja';
+    return `Nivel de confianza global del resultado: ${level}.`;
+  }
+
+  /* ============ reset ============ */
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    currentRgb=null; currentEstimate=null; sourceType=null;
+    document.getElementById('resultBody').classList.remove('active');
+    document.getElementById('emptyState').style.display='flex';
+    fileInput.value='';
+    stopCamera();
+    startCamBtn.style.display='block';
+    shotBtn.style.display='none';
+    video.style.display='none';
+  });
+
+})();
+</script>
+</body>
+</html>
