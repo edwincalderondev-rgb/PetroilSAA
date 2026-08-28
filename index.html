@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Petroil S.A. — Mejorando el aire que respiramos</title>
+<title>Petroil S.A | Mejorando el aire que respiramos</title>
 <link rel="icon" type="image/png" sizes="270x270" href="img/cropped-favicon-petroil-270x270.png">
 <link rel="apple-touch-icon" href="img/cropped-favicon-petroil-270x270.png">
 <meta name="theme-color" content="#0A2A43">
@@ -15,62 +15,139 @@
 <body>
 
 <a href="#main" class="skip-link">Saltar al contenido</a>
-<div class="scroll-progress" id="scrollProgress"></div>
+<div class="scroll-track" id="scrollTrack">
+  <div class="scroll-progress" id="scrollProgress"></div>
+</div>
 
-<header class="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="img/cropped-logo-petroil.png" alt="Petroil S.A.">
-    </a>
-    <nav class="nav-links" id="navLinks">
-      <a href="#productos">Productos</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#innovacion" class="current">Innovación</a>
-      <a href="portal-clientes.html">Clientes<span class="badge-soon">Nuevo</span></a>
-      <a href="quienes-somos.html">¿Quiénes somos?</a>
-      <a href="#noticias">Noticias</a>
-    </nav>
-    <div class="nav-right">
-      <div class="lang-select" id="langSelect">
-        <button class="lang-btn" id="langBtn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
-          ES
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="lang-dropdown">
-          <a href="#">English</a>
-          <a href="#">Español</a>
-          <a href="#">Português</a>
+<header class="navbar" id="siteHeader">
+  <div class="navbar-top">
+    <div class="navbar-top-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="img/cropped-logo-petroil.png" alt="Petroil S.A.">
+      </a>
+      <div class="nav-utility">
+        <a href="portal-clientes.html" class="portal-link">Portal de clientes</a>
+        <div class="lang-select" id="langSelect">
+          <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+            ES
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="lang-dropdown">
+            <a href="#">English</a>
+            <a href="#">Español</a>
+            <a href="#">Português</a>
+          </div>
         </div>
+        <a href="#contacto" class="btn-contacto">Contacto</a>
+        <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-expanded="false" aria-controls="navDrawer">
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <a href="#contacto" class="btn-contacto">Contacto</a>
-      <button class="hamburger" id="hamburger" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </div>
+
+  <div class="navbar-route">
+    <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
+      <span class="route-fill-line" id="routeFillLine" aria-hidden="true"></span>
+      <a href="#servicios" class="route-link" data-section="#servicios">
+        <span class="route-label">Servicios</span>
+        <span class="route-node" aria-hidden="true"></span>
+      </a>
+      <a href="#productos" class="route-link" data-section="#productos">
+        <span class="route-label">Productos</span>
+        <span class="route-node" aria-hidden="true"></span>
+      </a>
+      <a href="#innovacion" class="route-link" data-section="#innovacion">
+        <span class="route-label">Innovación</span>
+        <span class="route-node" aria-hidden="true"></span>
+      </a>
+      <a href="#noticias" class="route-link" data-section="#noticias">
+        <span class="route-label">Noticias</span>
+        <span class="route-node" aria-hidden="true"></span>
+      </a>
+      <a href="quienes-somos.html" class="route-link" data-section="#nosotros">
+        <span class="route-label">¿Quiénes somos?</span>
+        <span class="route-node" aria-hidden="true"></span>
+      </a>
+    </nav>
+  </div>
 </header>
+
+<div class="nav-overlay" id="navOverlay"></div>
+
+<aside class="nav-drawer" id="navDrawer" aria-hidden="true" aria-label="Menú de navegación móvil">
+  <div class="drawer-top">
+    <span class="drawer-logo-wrap">
+      <img src="img/cropped-logo-petroil.png" alt="Petroil S.A." class="drawer-logo">
+    </span>
+    <button class="drawer-close" id="drawerClose" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+
+  <nav class="drawer-route" aria-label="Navegación principal móvil">
+    <span class="route-fill-line-v" id="routeFillLineV" aria-hidden="true"></span>
+    <a href="#servicios" class="drawer-link" data-section="#servicios">
+      <span class="drawer-node" aria-hidden="true"></span>
+      Servicios
+    </a>
+    <a href="#productos" class="drawer-link" data-section="#productos">
+      <span class="drawer-node" aria-hidden="true"></span>
+      Productos
+    </a>
+    <a href="#innovacion" class="drawer-link" data-section="#innovacion">
+      <span class="drawer-node" aria-hidden="true"></span>
+      Innovación
+    </a>
+    <a href="#noticias" class="drawer-link" data-section="#noticias">
+      <span class="drawer-node" aria-hidden="true"></span>
+      Noticias
+    </a>
+    <a href="quienes-somos.html" class="drawer-link" data-section="#nosotros">
+      <span class="drawer-node" aria-hidden="true"></span>
+      ¿Quiénes somos?
+    </a>
+  </nav>
+
+  <div class="drawer-footer">
+    <a href="portal-clientes.html" class="drawer-portal">Portal de clientes</a>
+    <a href="#contacto" class="btn-contacto">Contacto</a>
+    <div class="lang-select drawer-lang" id="langSelectDrawer">
+      <button class="lang-btn" id="langBtnDrawer" aria-haspopup="true" aria-expanded="false">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+        ES
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="lang-dropdown">
+        <a href="#">English</a>
+        <a href="#">Español</a>
+        <a href="#">Português</a>
+      </div>
+    </div>
+  </div>
+</aside>
 
 <main id="main">
 
   <section class="hero hero-video-mode">
     <video class="hero-bg-media" autoplay loop muted playsinline poster="image_470525.jpg">
-      <source src="Petroil animado.mp4" type="video/mp4">
+      <source src="Petroil animad.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
     <div class="hero-particles" id="heroParticles"></div>
 
     <div class="hero-inner">
       <div class="hero-content">
-        <span class="hero-badge"><span class="pulse-dot"></span> Refinería de hidrocarburos · Colombia</span>
+        <span class="hero-badge"><span class="pulse-dot"></span>Primera refinería en América Latina en producir combustibles de transición</span>
         <h1>Mejorando el aire que <b>respiramos.</b></h1>
         <p class="lead">Lideramos una nueva generación de soluciones energéticas. Desarrollamos combustibles más limpios y eficientes, impulsando la innovación, el crecimiento sostenible y el desarrollo energético de Colombia y la región.</p>
         <div class="hero-ctas">
           <a href="#productos" class="btn-primary">
-            Ver productos
+            Productos
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <a href="#servicios" class="btn-outline">Nuestros servicios</a>
+          <a href="#servicios" class="btn-outline">Innovación</a>
         </div>
       </div>
     </div>
@@ -566,14 +643,14 @@
 El acuerdo tiene como objetivo reducir las emisiones de carbono a nivel global y limitar el calentamiento global a menos de dos grados centígrados. La transición energética es un proceso de cambio de una forma de producción de energía a otra, e incluye fuentes de energía renovables y no renovables. Entre los cambios se encuentra el reemplazo de combustibles fósiles, como el carbón y el petróleo, por fuentes renovables, como la energía solar y la eólica. La transición de los combustibles fósiles a las fuentes renovables llevará tiempo, pero al final valdrá la pena porque es la clave para mitigar los impactos ambientales de fenómenos como el cambio climático y la contaminación del aire.
 </p></div>
         </details>
-        <details class="faq-item">
+        <!-- <details class="faq-item">
           <summary>¿Qué son los combustibles de transición energética?</summary>
           <div class="faq-answer"><p>Se les llama a los combustibles que son fuentes de energía “puente” los cuales han sido cuidadosamente diseñados para reducir la huella de carbono al lograr una reducción significativa en las emisiones de gases de efecto invernadero como: CO, CO2, SOX, N2O2, NOX, CH4, compuestos orgánicos distintos al metano, aromáticos, olefinas, cetonas, aldehídos, poli aromáticos y material particulado MP10 y MP2.5. Se utilizan mientras se logra la adopción total y el desarrollo de infraestructuras para energías 100 % renovables. </p></div>
         </details>
         <details class="faq-item">
           <summary>¿Cómo puedo convertirme en cliente o aliado comercial de Petroil?</summary>
           <div class="faq-answer"><p>Puedes escribirnos por WhatsApp o correo electrónico para ser contactado por el área comercial, que evalúa el volumen, tipo de combustible y condiciones logísticas requeridas para diseñar una propuesta a la medida de tu operación.</p></div>
-        </details>
+        </details> -->
 
 <details class="faq-item">
   <summary>¿Qué es el Euro 6 o Euro VI?</summary>
@@ -600,7 +677,7 @@ El acuerdo tiene como objetivo reducir las emisiones de carbono a nivel global y
   </div>
 </details>
 
-<details class="faq-item">
+<!-- <details class="faq-item">
   <summary>¿Qué medidas de seguridad implementa la refinería?</summary>
   <div class="faq-answer">
     <p>Contamos con un Sistema de Gestión Integral certificado bajo las normas ISO 9001:2015, ISO 14001:2015 e ISO 45001:2018. Nuestra operación se orienta por la Política de Gestión Integral y Sostenibilidad, junto con estrictos protocolos de seguridad, capacitación continua, monitoreo permanente de procesos y planes de respuesta ante emergencias.</p>
@@ -668,7 +745,7 @@ El acuerdo tiene como objetivo reducir las emisiones de carbono a nivel global y
   <div class="faq-answer">
     <p>Los interesados pueden ingresar a la sección <strong>"Proveedores"</strong> de nuestro sitio web y completar el proceso de registro siguiendo las instrucciones indicadas en la plataforma.</p>
   </div>
-</details>
+</details> -->
         
       </div>
     </div>
@@ -748,23 +825,26 @@ El acuerdo tiene como objetivo reducir las emisiones de carbono a nivel global y
   </div>
 </footer>
 
-<button class="chat-launcher" id="chatLauncher" aria-label="Abrir asistente virtual">
+<button class="chat-launcher" id="chatLauncher" aria-label="Abrir chat con AIRA, asistente virtual de Petroil">
   <span class="demo-dot">DEMO</span>
-  <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1.1-4.2A8 8 0 1121 12z"/></svg>
+  <img class="launcher-avatar" src="img/aira-avatar.webp" alt="" width="60" height="60">
 </button>
 
 <div class="chat-panel" id="chatPanel">
   <div class="chat-head">
-    <span class="dot"></span>
+    <div class="chat-avatar-wrap">
+      <img class="chat-avatar" src="img/aira-avatar.webp" alt="" width="40" height="40">
+      <span class="dot" aria-hidden="true"></span>
+    </div>
     <div>
-      <strong>Asistente Petroil</strong>
-      <span>En línea · respuestas de ejemplo</span>
+      <strong>AIRA</strong>
+      <span>Asistente virtual de Petroil · En línea</span>
     </div>
     <button class="chat-close" id="chatClose" aria-label="Cerrar chat">✕</button>
   </div>
   <div class="chat-disclaimer">Este chat es una demostración con respuestas predefinidas de ejemplo.</div>
   <div class="chat-log" id="chatLog">
-    <div class="msg bot">Hola 👋 Soy el asistente virtual de Petroil. Elige una opción para ver cómo funcionaría este módulo.</div>
+    <div class="msg bot">Hola 👋 Soy AIRA, tu asistente virtual de Petroil. Elige una opción para ver cómo funcionaría este módulo.</div>
   </div>
   <div class="chat-quick" id="chatQuick">
     <button class="quick-btn" data-q="productos">¿Qué productos ofrecen?</button>
