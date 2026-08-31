@@ -706,8 +706,8 @@ if(tocLinks.length){
     //      casi sin retraso; bájalo (ej. 0.15) para más inercia/flotación.
     const dx = mouseX - posX;
     const dy = mouseY - posY;
-    posX += dx * 0.42;
-    posY += dy * 0.42;
+    posX += dx * 0.62;
+    posY += dy * 0.62;
 
     // Balanceo lateral según la velocidad horizontal: refuerza la
     // sensación de "gota líquida" en movimiento.
@@ -723,8 +723,8 @@ if(tocLinks.length){
     //      qué tan rápido reacciona la inclinación al movimiento: más alto
     //      = respuesta más inmediata y "nerviosa"; más bajo = balanceo más
     //      suave y con más rebote.
-    const TILT_SENSITIVITY = 2.4;
-    const TILT_MAX = 32;
+    const TILT_SENSITIVITY = 6.4;
+    const TILT_MAX = 92;
     const targetTilt = Math.max(-TILT_MAX, Math.min(TILT_MAX, dx * TILT_SENSITIVITY));
     tilt += (targetTilt - tilt) * 0.5;
 
